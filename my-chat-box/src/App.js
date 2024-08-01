@@ -1,7 +1,22 @@
+import { useState } from "react";
+import ChatBox from "./components/ChatBox";
+import OpenChatBox from "./components/OpenChatBox";
 function App() {
+  const [isChatOpen, setIsChatOpen] = useState(false);
+
+  const handleChatToggle = () => {
+    setIsChatOpen(!isChatOpen);
+  };
+
   return (
     <div className="App">
-      <p>hi</p>
+      {isChatOpen ? (
+        <ChatBox handleChatToggle={handleChatToggle} />
+      ) : (
+        <div onClick={handleChatToggle}>
+          <OpenChatBox />
+        </div>
+      )}
     </div>
   );
 }

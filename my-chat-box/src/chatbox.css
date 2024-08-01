@@ -1,0 +1,8 @@
+.chatbox {
+  width: 300px;
+  border: 15px solid;
+  border-color: aqua;
+  padding: 50px;
+  margin: 20px;
+  background-color: black;
+}
