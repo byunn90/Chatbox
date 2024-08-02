@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ChatBox from "./components/ChatBox";
 import OpenChatBox from "./components/OpenChatBox";
+
 function App() {
   const [chat, setChat] = useState("");
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -12,7 +13,11 @@ function App() {
   return (
     <div className="App">
       {isChatOpen ? (
-        <ChatBox handleChatToggle={handleChatToggle} setChat={setChat} />
+        <ChatBox
+          handleChatToggle={handleChatToggle}
+          setChat={setChat}
+          chat={chat}
+        />
       ) : (
         <div onClick={handleChatToggle}>
           <OpenChatBox />

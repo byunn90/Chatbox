@@ -1,16 +1,16 @@
 import { useState } from "react";
 import "../chatbox.css";
 
-function ChatBox({ handleChatToggle, setChat }) {
+function ChatBox({ handleChatToggle, setChat, chat }) {
   const [inputValue, setInputValue] = useState("");
 
-  const handleChatSubmit = (e) => {
+  const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
 
   const handleSendMessage = () => {
-    setChat("");
-    inputValue("");
+    setChat(inputValue);
+    setInputValue("");
   };
 
   return (
@@ -19,15 +19,17 @@ function ChatBox({ handleChatToggle, setChat }) {
         <span>Chat</span>
         <button onClick={handleChatToggle}>&times;</button>
       </div>
-      <div className="chatbox-content">{handleSendMessage}</div>
+      <div className="chatbox-content">
+        <p>{chat}</p>
+      </div>
       <div className="chatbox-footer">
         <input
           type="text"
           value={inputValue}
-          onChange={handleChatSubmit}
+          onChange={handleInputChange}
           placeholder="Type a message"
-        ></input>
-        <button onClick={handleSendMessage}>send</button>
+        />
+        <button onClick={handleSendMessage}>Send</button>
       </div>
     </div>
   );
