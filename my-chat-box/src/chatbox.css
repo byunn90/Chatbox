@@ -1,14 +1,40 @@
+/* OpenChatBox styles */
+.OpenChatBox {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background-color: #007bff;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+.OpenChatBox:hover {
+  background-color: #0056b3;
+}
+
+/* Chatbox styles */
 .chatbox {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
   width: 300px;
   border: 10px solid blue;
   padding: 10px;
-  margin: 20px;
   background-color: white;
   border-radius: 10px; /* Rounded corners */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  position: relative;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Box shadow for the chatbox */
 }
 
 .chatbox-header {

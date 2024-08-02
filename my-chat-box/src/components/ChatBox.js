@@ -19,12 +19,13 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
         <span>Chat</span>
         <button onClick={handleChatToggle}>&times;</button>
       </div>
-      <div className="chatbox-content">
-        <p>{chat}</p>
-      </div>
+      <ul className="chat-thread">
+        <li>{chat}</li>
+      </ul>
       <div className="chatbox-footer">
         <input
           type="text"
+          className="chat-window-message"
           value={inputValue}
           onChange={handleInputChange}
           placeholder="Type a message"
