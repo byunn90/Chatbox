@@ -3,7 +3,7 @@ import ChatBox from "./components/ChatBox";
 import OpenChatBox from "./components/OpenChatBox";
 
 function App() {
-  const [chat, setChat] = useState("");
+  const [chat, setChat] = useState([]);
   const [isChatOpen, setIsChatOpen] = useState(false);
 
   const handleChatToggle = () => {

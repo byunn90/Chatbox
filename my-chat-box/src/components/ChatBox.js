@@ -9,8 +9,10 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
   };
 
   const handleSendMessage = () => {
-    setChat(inputValue);
-    setInputValue("");
+    if (inputValue.trim()) {
+      setChat([...chat, inputValue]);
+      setInputValue("");
+    }
   };
 
   return (
@@ -20,7 +22,9 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
         <button onClick={handleChatToggle}>&times;</button>
       </div>
       <ul className="chat-thread">
-        <li>{chat}</li>
+        {chat.map((message, index) => (
+          <li key={index}>{message}</li>
+        ))}
       </ul>
       <div className="chatbox-footer">
         <input
