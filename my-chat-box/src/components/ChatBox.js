@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSmile, faPaperclip } from "@fortawesome/free-solid-svg-icons";
 import "../chatbox.css";
 
 function ChatBox({ handleChatToggle, setChat, chat }) {
@@ -15,15 +17,23 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
     }
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSendMessage();
+    }
+  };
+
   return (
     <div className="chatbox">
       <div className="chatbox-header">
-        <span>Chat</span>
+        <span>Chat Support 🤖</span>
         <button onClick={handleChatToggle}>&times;</button>
       </div>
       <ul className="chat-thread">
         {chat.map((message, index) => (
-          <li key={index}>{message}</li>
+          <li key={index}>
+            <div className="chat-bubble">{message}</div>
+          </li>
         ))}
       </ul>
       <div className="chatbox-footer">
@@ -32,9 +42,15 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
           className="chat-window-message"
           value={inputValue}
           onChange={handleInputChange}
+          onKeyDown={handleKeyDown}
           placeholder="Type a message"
         />
-        <button onClick={handleSendMessage}>Send</button>
+        <div className="fontAswome-Icons">
+          <FontAwesomeIcon icon="fa-solid fa-square-plus" />
+          <FontAwesomeIcon icon={faSmile} className="icon" />
+          <FontAwesomeIcon icon={faPaperclip} className="icon" />
+        </div>
+        {/* <button onClick={handleSendMessage}>Send</button> */}
       </div>
     </div>
   );

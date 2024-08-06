@@ -24,17 +24,18 @@
 /* Chatbox styles */
 .chatbox {
   position: fixed;
+  height: 350px;
   bottom: 20px;
   right: 20px;
   width: 300px;
-  border: 10px solid blue;
+  border: 20px solid #f5eded;
   padding: 10px;
   background-color: white;
   border-radius: 10px; /* Rounded corners */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Box shadow for the chatbox */
+  box-shadow: 0 0 10px rgba(99, 56, 56, 0.1); /* Box shadow for the chatbox */
   text-decoration: none;
 }
 
@@ -68,4 +69,19 @@
 
 .chat-thread {
   list-style-type: none;
+  padding: 0;
+  margin: 0;
+  flex-grow: 1; /* Allow the chat thread to grow and take available space */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.chat-bubble {
+  max-width: 70%;
+  padding: 10px;
+  border-radius: 20px;
+  background-color: #f1f1f1;
+  margin-left: auto;
+  margin-right: 10px;
+  margin-bottom: 15px;
+  word-wrap: break-word; /* Ensure long words wrap inside the bubble */
 }
