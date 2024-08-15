@@ -1,5 +1,0 @@
-###
-GET http://localhost:5100/
-
-### 
-PUT http://localhost:5100/
