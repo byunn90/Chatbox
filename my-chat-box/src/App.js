@@ -5,7 +5,7 @@ import OpenChatBox from "./components/OpenChatBox";
 function App() {
   const [chat, setChat] = useState([]);
   const [isChatOpen, setIsChatOpen] = useState(false);
-
+  ////// Needs work done
   // Fetch messages when the chatbox is opened
   useEffect(() => {
     if (isChatOpen) {
