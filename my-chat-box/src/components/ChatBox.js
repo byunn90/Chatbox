@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSmile, faPaperclip } from "@fortawesome/free-solid-svg-icons";
 import "../chatbox.css";
+const name = "Kayhan";
 
 function ChatBox({ handleChatToggle, setChat, chat }) {
   const [inputValue, setInputValue] = useState("");
@@ -32,6 +33,7 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
       <ul className="chat-thread">
         {chat.map((message, index) => (
           <li key={index}>
+            {/* // Please Work on this <div>{name}</div> */}
             <div className="chat-bubble">{message}</div>
           </li>
         ))}

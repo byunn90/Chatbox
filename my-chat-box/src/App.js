@@ -14,21 +14,25 @@ function App() {
   // }
 
   useEffect(() => {
-    if (isChatOpen) {
-      console.log("Open");
-      fetch("http://localhost:5228/chatbox")
-        .then((response) => response.json())
-        .then((data) => setChat(data))
-        .catch((error) => console.error("hi:", error));
-    } else {
-      console.log("Closed");
+    async function fetchText() {
+      try {
+        const response = await fetch("http://localhost:5228/chatbox");
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const result = await response.json();
+        console.log("Fetched data:", result); // This should log your chatBox array
+      } catch (error) {
+        console.error("Fetch error:", error); // Log any errors
+      }
     }
-  }, [isChatOpen]); // Dependency array ensures this runs when isChatOpen changes
 
+    fetchText();
+  }, []);
   const handleChatToggle = () => {
     setIsChatOpen(!isChatOpen);
   };
-
+  // Needs work done
   return (
     <div className="App">
       {isChatOpen ? (
