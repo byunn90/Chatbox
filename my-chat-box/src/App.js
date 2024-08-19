@@ -3,15 +3,10 @@ import ChatBox from "./components/ChatBox";
 import OpenChatBox from "./components/OpenChatBox";
 
 function App() {
-  const [name, SetName] = "";
   const [chat, setChat] = useState([]);
   const [isChatOpen, setIsChatOpen] = useState(false);
   ////// Needs work done
   // Fetch messages when the chatbox is opened
-
-  // if (!name) {
-  //   alert("Please enter your Name before sending a message");
-  // }
 
   useEffect(() => {
     async function fetchText() {
@@ -40,6 +35,7 @@ function App() {
           handleChatToggle={handleChatToggle}
           setChat={setChat}
           chat={chat}
+          setIsChatOpen={setIsChatOpen}
         />
       ) : (
         <div onClick={handleChatToggle}>
