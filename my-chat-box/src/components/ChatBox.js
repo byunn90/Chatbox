@@ -17,7 +17,8 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
   //     alert()
   //   }
   // }
-
+  // START WORKING ON QUESTIONS
+  // ASK HELP FROM HAMID
   const handleSendMessage = async () => {
     if (inputValue.trim()) {
       if (!isNameEntered) {
