@@ -2,11 +2,15 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSmile, faPaperclip } from "@fortawesome/free-solid-svg-icons";
 import "../chatbox.css";
+import ChatQuestions from "./question";
 
 function ChatBox({ handleChatToggle, setChat, chat }) {
   const [inputValue, setInputValue] = useState("");
   const [name, setName] = useState(""); // State to store the user's name
   const [isNameEntered, setIsNameEntered] = useState(false); // State to check if the name is entered
+  const [currentQuestion, setCurrentQuestion] = useState("greeting"); // State to track the current question
+
+  const questions = ChatQuestions(); // Get the questions from the function
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
@@ -19,10 +23,10 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
   // }
   // START WORKING ON QUESTIONS
   // ASK HELP FROM HAMID
+  // CSS NEEDS WORK
   const handleSendMessage = async () => {
     if (inputValue.trim()) {
       if (!isNameEntered) {
-        // If the name is not entered, treat the input as the name
         setName(inputValue);
         setChat([
           ...chat,
@@ -30,8 +34,13 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
         ]);
         setIsNameEntered(true);
         setInputValue(""); // Clear the input field
+
+        // Start the conversation with the first question
+        setChat((prevChat) => [
+          ...prevChat,
+          { text: questions.greeting, name: "Bot" },
+        ]);
       } else {
-        // If the name is entered, send the message as usual
         try {
           const postData = {
             name: name, // Use the name entered by the user
@@ -49,6 +58,36 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
 
           setChat([...chat, { text: inputValue, name }]);
           setInputValue(""); // Clear the input field after sending
+
+          // Determine the next question based on user input
+          let nextQuestion = "";
+
+          if (currentQuestion === "greeting") {
+            if (inputValue.toLowerCase().includes("order")) {
+              nextQuestion = questions.options.orderStatus.question;
+              setCurrentQuestion("orderStatus");
+            } else if (inputValue.toLowerCase().includes("product")) {
+              nextQuestion = questions.options.productInfo.question;
+              setCurrentQuestion("productInfo");
+            } else if (inputValue.toLowerCase().includes("support")) {
+              nextQuestion = questions.options.technicalSupport.question;
+              setCurrentQuestion("technicalSupport");
+            } else {
+              nextQuestion = questions.closing;
+              setCurrentQuestion("closing");
+            }
+          } else if (currentQuestion === "orderStatus") {
+            nextQuestion = questions.options.orderStatus.followUp;
+          } else if (currentQuestion === "productInfo") {
+            nextQuestion = questions.options.productInfo.followUp;
+          } else if (currentQuestion === "technicalSupport") {
+            nextQuestion = questions.options.technicalSupport.followUp;
+          }
+
+          setChat((prevChat) => [
+            ...prevChat,
+            { text: nextQuestion, name: "Bot" },
+          ]);
         } catch (error) {
           console.error("Send message error:", error);
         }
