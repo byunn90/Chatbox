@@ -2,13 +2,14 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSmile, faPaperclip } from "@fortawesome/free-solid-svg-icons";
 import "../chatbox.css";
-import ChatQuestions from "./question";
+import ChatQuestions from "./question"; // Import your questions
 
 function ChatBox({ handleChatToggle, setChat, chat }) {
   const [inputValue, setInputValue] = useState("");
   const [name, setName] = useState(""); // State to store the user's name
   const [isNameEntered, setIsNameEntered] = useState(false); // State to check if the name is entered
   const [currentQuestion, setCurrentQuestion] = useState("greeting"); // State to track the current question
+  const [showOptions, setShowOptions] = useState(false); // State to handle showing options
 
   const questions = ChatQuestions(); // Get the questions from the function
 
@@ -16,14 +17,31 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
     setInputValue(e.target.value);
   };
 
-  // function handleCloseOpenChatBox() {
-  //   if(!handleChatToggle) {
-  //     alert()
-  //   }
-  // }
-  // START WORKING ON QUESTIONS
-  // ASK HELP FROM HAMID
-  // CSS NEEDS WORK
+  const handleOptionSelect = (option) => {
+    setChat([...chat, { text: option, name }]);
+
+    // Handle different options here
+    if (option === "Do you want to check the status of your order?") {
+      setChat((prevChat) => [
+        ...prevChat,
+        { text: questions.options.orderStatus.followUp, name: "Bot" },
+      ]);
+      setShowOptions(false); // Hide options after selection
+    } else if (option === "Would you like to contact support?") {
+      setChat((prevChat) => [
+        ...prevChat,
+        { text: "Connecting you to support...", name: "Bot" },
+      ]);
+      setShowOptions(false);
+    } else if (option === "About us?") {
+      setChat((prevChat) => [
+        ...prevChat,
+        { text: "We are a company dedicated to...", name: "Bot" },
+      ]);
+      setShowOptions(false);
+    }
+  };
+
   const handleSendMessage = async () => {
     if (inputValue.trim()) {
       if (!isNameEntered) {
@@ -40,6 +58,7 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
           ...prevChat,
           { text: questions.greeting, name: "Bot" },
         ]);
+        setShowOptions(true); // Show options after greeting
       } else {
         try {
           const postData = {
@@ -61,7 +80,7 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
 
           // Determine the next question based on user input
           let nextQuestion = "";
-
+          // Maybe need some changes to this to into different file
           if (currentQuestion === "greeting") {
             if (inputValue.toLowerCase().includes("order")) {
               nextQuestion = questions.options.orderStatus.question;
@@ -123,18 +142,30 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
         )}
       </ul>
       <div className="chatbox-footer">
-        <input
-          type="text"
-          className="chat-window-message"
-          value={inputValue}
-          onChange={handleInputChange}
-          onKeyDown={handleKeyDown}
-          placeholder={isNameEntered ? "Type a message" : "Enter your name"}
-        />
-        <div className="fontAwesome-Icons">
-          <FontAwesomeIcon icon={faSmile} className="icon" />
-          <FontAwesomeIcon icon={faPaperclip} className="icon" />
-        </div>
+        {showOptions ? (
+          <div className="options">
+            {questions.options.orderStatus.question.map((option, index) => (
+              <button key={index} onClick={() => handleOptionSelect(option)}>
+                {option}
+              </button>
+            ))}
+          </div>
+        ) : (
+          <>
+            <input
+              type="text"
+              className="chat-window-message"
+              value={inputValue}
+              onChange={handleInputChange}
+              onKeyDown={handleKeyDown}
+              placeholder={isNameEntered ? "Type a message" : "Enter your name"}
+            />
+            <div className="fontAwesome-Icons">
+              <FontAwesomeIcon icon={faSmile} className="icon" />
+              <FontAwesomeIcon icon={faPaperclip} className="icon" />
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

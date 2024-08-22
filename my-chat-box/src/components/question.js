@@ -1,10 +1,14 @@
-// Questions
+// questions.js
 function ChatQuestions() {
   return {
     greeting: "Hi there! How can I assist you today?",
     options: {
       orderStatus: {
-        question: "Do you want to check the status of your order?",
+        question: [
+          "Do you want to check the status of your order?",
+          "Would you like to contact support?",
+          "About us?",
+        ],
         followUp: "Can you please provide your order number?",
       },
       productInfo: {
@@ -20,11 +24,4 @@ function ChatQuestions() {
   };
 }
 
-/*
-  options: {
-      orderStatus: {
-        question: ["Do you want to check the status of your order?", "Would you like to contact support?", "About us?"],
-        followUp: "Can you please provide your order number?",
-      },
-*/
 export default ChatQuestions;

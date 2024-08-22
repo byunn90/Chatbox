@@ -85,3 +85,107 @@
   margin-bottom: 15px;
   word-wrap: break-word; /* Ensure long words wrap inside the bubble */
 }
+
+/* chatbox.css */
+
+/* General chatbox styling */
+.chatbox {
+  width: 300px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.chatbox-header {
+  background-color: #4a90e2;
+  color: #fff;
+  padding: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chatbox-header span {
+  font-weight: bold;
+}
+
+.chatbox-header button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.chat-thread {
+  list-style-type: none;
+  padding: 10px;
+  margin: 0;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.chat-thread li {
+  margin-bottom: 10px;
+}
+
+.chat-bubble {
+  background-color: #f1f1f1;
+  padding: 10px;
+  border-radius: 20px;
+  max-width: 80%;
+}
+
+.chat-bubble.bot {
+  background-color: #e2f1ff;
+}
+
+.chatbox-footer {
+  padding: 10px;
+  border-top: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+}
+
+.chat-window-message {
+  flex-grow: 1;
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  margin-right: 10px;
+}
+
+.fontAwesome-Icons {
+  display: flex;
+  gap: 10px;
+}
+
+/* Styling for the options (multiple-choice buttons) */
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.options button {
+  padding: 10px 10px;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.options button:hover {
+  background-color: #357ab7;
+}
+
+.options button:focus {
+  outline: none;
+  background-color: #357ab7;
+}
