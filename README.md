@@ -1,4 +1,4 @@
-# Chatbox
+<!-- # Chatbox
 
 A user-friendly chat interface designed to provide real-time assistance to clients, featuring modular code structure, file handling, and emoji selection capabilities.
 
@@ -69,4 +69,4 @@ Contributing
 We welcome contributions from the community. If you have suggestions or improvements, please submit a pull request. Make sure to follow the contribution guidelines.
 
 License
-This project is licensed under the MIT License. See the LICENSE file for more details.
+This project is licensed under the MIT License. See the LICENSE file for more details. -->
