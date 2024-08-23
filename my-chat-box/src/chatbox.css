@@ -189,3 +189,11 @@
   outline: none;
   background-color: #357ab7;
 }
+
+.chatbox-header img {
+  border-radius: 10px;
+  width: 30px;
+  height: auto;
+  margin-left: 10px;
+  vertical-align: middle;
+}

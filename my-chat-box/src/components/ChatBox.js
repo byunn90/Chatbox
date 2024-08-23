@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSmile, faPaperclip } from "@fortawesome/free-solid-svg-icons";
 import "../chatbox.css";
+import chatGirl from "./images/chatgirl.webp";
 import HandleOptionSelect from "./HandleOptionSelect";
 import HandleKeyDown from "./HandleKeyDown";
 import HandleSendMessage from "./HandleSendMessage";
@@ -44,10 +45,18 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
     setInputValue(e.target.value);
   };
 
+  const addEmoji = (e) => {
+    setInputValue(e.taget.value);
+    console.log("Hi emoji");
+  };
+
   return (
     <div className="chatbox">
       <div className="chatbox-header">
-        <span>Chat Support 🤖</span>
+        <span>
+          Mira
+          <img src={chatGirl} />
+        </span>
         <button onClick={handleChatToggle}>&times;</button>
       </div>
       <ul className="chat-thread">
@@ -85,7 +94,9 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
               placeholder={isNameEntered ? "Type a message" : "Enter your name"}
             />
             <div className="fontAwesome-Icons">
-              <FontAwesomeIcon icon={faSmile} className="icon" />
+              <button onclick={addEmoji}>
+                <FontAwesomeIcon icon={faSmile} className="icon" />
+              </button>
               <FontAwesomeIcon icon={faPaperclip} className="icon" />
             </div>
           </>
