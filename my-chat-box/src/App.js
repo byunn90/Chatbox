@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import ChatBox from "./components/ChatBox";
 import OpenChatBox from "./components/OpenChatBox";
-
+/*
+Notes 
+Todoo  
+Gotta work on questions now and also need to fix up front-end or the back-end for text collection for the data base
+*/
 function App() {
   const [chat, setChat] = useState([]);
   const [isChatOpen, setIsChatOpen] = useState(false);
