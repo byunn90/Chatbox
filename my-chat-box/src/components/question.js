@@ -23,5 +23,6 @@ function ChatQuestions() {
     closing: "Is there anything else you need help with?",
   };
 }
+// Need more questions and responses
 
 export default ChatQuestions;
