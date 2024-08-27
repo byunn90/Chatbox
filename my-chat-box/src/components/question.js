@@ -1,4 +1,3 @@
-// questions.js
 function ChatQuestions() {
   return {
     greeting: "Hi there! How can I assist you today?",
@@ -25,6 +24,5 @@ function ChatQuestions() {
     closing: "Is there anything else you need help with?",
   };
 }
-// Need more questions and responses
 
 export default ChatQuestions;

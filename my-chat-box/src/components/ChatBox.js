@@ -7,16 +7,16 @@ import HandleOptionSelect from "./HandleOptionSelect";
 import HandleKeyDown from "./HandleKeyDown";
 import HandleSendMessage from "./HandleSendMessage";
 import ChatQuestions from "./question";
-
 function ChatBox({ handleChatToggle, setChat, chat }) {
   const [inputValue, setInputValue] = useState("");
-  const [name, setName] = useState(""); // State to store the user's name
-  const [isNameEntered, setIsNameEntered] = useState(false); // State to check if the name is entered
-  const [currentQuestion, setCurrentQuestion] = useState("greeting"); // State to track the current question
-  const [showOptions, setShowOptions] = useState(false); // State to handle showing options
+  const [name, setName] = useState("");
+  const [isNameEntered, setIsNameEntered] = useState(false);
+  const [currentQuestion, setCurrentQuestion] = useState("greeting");
+  const [showOptions, setShowOptions] = useState(false);
+  const [inputMode, setInputMode] = useState("normal");
 
-  const questions = ChatQuestions(); // Get the questions from the function
-  // Destructured HandleSendMessage function
+  const questions = ChatQuestions();
+
   const { handleSendMessage } = HandleSendMessage({
     inputValue,
     setInputValue,
@@ -24,30 +24,27 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
     setChat,
     chat,
     name,
+    isNameEntered,
     setIsNameEntered,
     setShowOptions,
     questions,
     currentQuestion,
     setCurrentQuestion,
   });
-  // Destructured HandleOptionSelect function
-  const { handleOptionSelect } = HandleOptionSelect({
-    setChat,
-    setShowOptions,
-    chat,
-    questions,
-    name,
-  });
 
   const { handleKeyDown } = HandleKeyDown(handleSendMessage);
 
+  const { handleOptionSelect } = HandleOptionSelect({
+    setChat,
+    setShowOptions,
+    setCurrentQuestion,
+    setInputMode,
+    questions,
+    chat,
+  });
+
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
-  };
-
-  const addEmoji = (e) => {
-    setInputValue(e.taget.value);
-    console.log("Hi emoji");
   };
 
   return (
@@ -55,14 +52,14 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
       <div className="chatbox-header">
         <span>
           Mira
-          <img src={chatGirl} />
+          <img src={chatGirl} alt="Chat Assistant" />
         </span>
         <button onClick={handleChatToggle}>&times;</button>
       </div>
       <ul className="chat-thread">
         {chat.map((message, index) => (
           <li key={index}>
-            <div>{message.name}</div> {/* Displaying the sender's name */}
+            <div>{message.name}</div>
             <div className="chat-bubble">{message.text}</div>
           </li>
         ))}
@@ -91,10 +88,16 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
               value={inputValue}
               onChange={handleInputChange}
               onKeyDown={handleKeyDown}
-              placeholder={isNameEntered ? "Type a message" : "Enter your name"}
+              placeholder={
+                currentQuestion === "contactSupport"
+                  ? "Enter your contact details"
+                  : isNameEntered
+                  ? "Type a message"
+                  : "Enter your name"
+              }
             />
             <div className="fontAwesome-Icons">
-              <button onclick={addEmoji}>
+              <button onClick={() => setInputValue(inputValue + "😊")}>
                 <FontAwesomeIcon icon={faSmile} className="icon" />
               </button>
               <FontAwesomeIcon icon={faPaperclip} className="icon" />

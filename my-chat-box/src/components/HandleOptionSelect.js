@@ -1,38 +1,33 @@
 export default function HandleOptionSelect({
   setChat,
   setShowOptions,
-  chat,
+  setCurrentQuestion,
+  setInputMode,
   questions,
-  name,
 }) {
   const handleOptionSelect = (option) => {
-    setChat([...chat, { text: option, name }]);
+    setChat((prevChat) => [...prevChat, { text: option, name: "User" }]);
 
-    // Handle different options here
-    if (option === "Do you want to check the status of your order?") {
+    if (option.includes("status of your order")) {
       setChat((prevChat) => [
         ...prevChat,
-        { text: questions.options.orderStatus.followUp, name: "Mira" },
+        { text: questions.options.orderStatus.followUp, name: "Bot" },
       ]);
-      setShowOptions(false); // Hide options after selection
-    } else if (option === "Would you like to contact support?") {
+      setCurrentQuestion("orderStatus");
+    } else if (option.includes("contact support")) {
       setChat((prevChat) => [
         ...prevChat,
-        {
-          text: questions.options.orderStatus.contactSupport,
-          name: "Mira",
-        },
+        { text: questions.options.orderStatus.contactSupport, name: "Mira" },
       ]);
+      setCurrentQuestion("contactSupport");
+      setInputMode("contact"); // <-- Switch to contact mode here
       setShowOptions(false);
-    } else if (option === "About us?") {
+    } else if (option.includes("About us")) {
       setChat((prevChat) => [
         ...prevChat,
-        {
-          text: "2Bytes exists to solve complex business IT problems. Our mission is to deliver content-rich solutions that save our customers time and money.",
-          name: "Mira",
-        },
+        { text: "We are a company dedicated to...", name: "Bot" },
       ]);
-      setShowOptions(false);
+      setCurrentQuestion("aboutUs");
     }
   };
 
