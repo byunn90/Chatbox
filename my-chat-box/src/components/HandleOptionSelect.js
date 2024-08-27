@@ -18,13 +18,19 @@ export default function HandleOptionSelect({
     } else if (option === "Would you like to contact support?") {
       setChat((prevChat) => [
         ...prevChat,
-        { text: "Connecting you to support...", name: "Bot" },
+        {
+          text: "Please Leave your contact details below and we will contact you back",
+          name: "Bot",
+        },
       ]);
       setShowOptions(false);
     } else if (option === "About us?") {
       setChat((prevChat) => [
         ...prevChat,
-        { text: "We are a company dedicated to...", name: "Bot" },
+        {
+          text: "2Bytes exists to solve complex business IT problems. Our mission is to deliver content-rich solutions that save our customers time and money.",
+          name: "Bot",
+        },
       ]);
       setShowOptions(false);
     }
