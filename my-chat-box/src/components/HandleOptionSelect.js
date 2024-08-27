@@ -1,33 +1,32 @@
 export default function HandleOptionSelect({
   setChat,
   setShowOptions,
-  setCurrentQuestion,
-  setInputMode,
+  chat,
   questions,
+  name,
 }) {
   const handleOptionSelect = (option) => {
-    setChat((prevChat) => [...prevChat, { text: option, name: "User" }]);
+    setChat([...chat, { text: option, name }]);
 
-    if (option.includes("status of your order")) {
+    // Handle different options here
+    if (option === "Do you want to check the status of your order?") {
       setChat((prevChat) => [
         ...prevChat,
         { text: questions.options.orderStatus.followUp, name: "Bot" },
       ]);
-      setCurrentQuestion("orderStatus");
-    } else if (option.includes("contact support")) {
+      setShowOptions(false); // Hide options after selection
+    } else if (option === "Would you like to contact support?") {
       setChat((prevChat) => [
         ...prevChat,
-        { text: questions.options.orderStatus.contactSupport, name: "Mira" },
+        { text: "Connecting you to support...", name: "Bot" },
       ]);
-      setCurrentQuestion("contactSupport");
-      setInputMode("contact"); // <-- Switch to contact mode here
-      setShowOptions(false);
-    } else if (option.includes("About us")) {
+      setShowOptions(true);
+    } else if (option === "About us?") {
       setChat((prevChat) => [
         ...prevChat,
         { text: "We are a company dedicated to...", name: "Bot" },
       ]);
-      setCurrentQuestion("aboutUs");
+      setShowOptions(false);
     }
   };
 

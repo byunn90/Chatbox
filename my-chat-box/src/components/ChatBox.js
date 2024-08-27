@@ -1,21 +1,22 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSmile, faPaperclip } from "@fortawesome/free-solid-svg-icons";
+import { faPaperclip } from "@fortawesome/free-solid-svg-icons";
 import "../chatbox.css";
 import chatGirl from "./images/chatgirl.webp";
 import HandleOptionSelect from "./HandleOptionSelect";
 import HandleKeyDown from "./HandleKeyDown";
 import HandleSendMessage from "./HandleSendMessage";
 import ChatQuestions from "./question";
+
 function ChatBox({ handleChatToggle, setChat, chat }) {
   const [inputValue, setInputValue] = useState("");
-  const [name, setName] = useState("");
-  const [isNameEntered, setIsNameEntered] = useState(false);
-  const [currentQuestion, setCurrentQuestion] = useState("greeting");
-  const [showOptions, setShowOptions] = useState(false);
-  const [inputMode, setInputMode] = useState("normal");
+  const [name, setName] = useState(""); // State to store the user's name
+  const [isNameEntered, setIsNameEntered] = useState(false); // State to check if the name is entered
+  const [currentQuestion, setCurrentQuestion] = useState("greeting"); // State to track the current question
+  const [showOptions, setShowOptions] = useState(false); // State to handle showing options
 
-  const questions = ChatQuestions();
+  // Call ChatQuestions with the updated name
+  const questions = ChatQuestions(setInputValue);
 
   const { handleSendMessage } = HandleSendMessage({
     inputValue,
@@ -24,7 +25,6 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
     setChat,
     chat,
     name,
-    isNameEntered,
     setIsNameEntered,
     setShowOptions,
     questions,
@@ -32,16 +32,15 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
     setCurrentQuestion,
   });
 
-  const { handleKeyDown } = HandleKeyDown(handleSendMessage);
-
   const { handleOptionSelect } = HandleOptionSelect({
     setChat,
     setShowOptions,
-    setCurrentQuestion,
-    setInputMode,
-    questions,
     chat,
+    questions,
+    name,
   });
+
+  const { handleKeyDown } = HandleKeyDown(handleSendMessage);
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
@@ -59,7 +58,7 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
       <ul className="chat-thread">
         {chat.map((message, index) => (
           <li key={index}>
-            <div>{message.name}</div>
+            <div>{message.name}</div> {/* Displaying the sender's name */}
             <div className="chat-bubble">{message.text}</div>
           </li>
         ))}
@@ -88,18 +87,9 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
               value={inputValue}
               onChange={handleInputChange}
               onKeyDown={handleKeyDown}
-              placeholder={
-                currentQuestion === "contactSupport"
-                  ? "Enter your contact details"
-                  : isNameEntered
-                  ? "Type a message"
-                  : "Enter your name"
-              }
+              placeholder={isNameEntered ? "Type a message" : "Enter your name"}
             />
             <div className="fontAwesome-Icons">
-              <button onClick={() => setInputValue(inputValue + "😊")}>
-                <FontAwesomeIcon icon={faSmile} className="icon" />
-              </button>
               <FontAwesomeIcon icon={faPaperclip} className="icon" />
             </div>
           </>

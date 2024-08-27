@@ -1,6 +1,6 @@
 function ChatQuestions() {
   return {
-    greeting: "Hi there! How can I assist you today?",
+    greeting: `Hi there! How can I assist today?`,
     options: {
       orderStatus: {
         question: [
