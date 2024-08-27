@@ -10,6 +10,8 @@ function ChatQuestions() {
           "About us?",
         ],
         followUp: "Can you please provide your order number?",
+        contactSupport:
+          "Please provide us with your contact details and a detail of the issue",
       },
       productInfo: {
         question: "Would you like to know more about a specific product?",

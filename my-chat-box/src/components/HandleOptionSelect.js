@@ -12,15 +12,15 @@ export default function HandleOptionSelect({
     if (option === "Do you want to check the status of your order?") {
       setChat((prevChat) => [
         ...prevChat,
-        { text: questions.options.orderStatus.followUp, name: "Bot" },
+        { text: questions.options.orderStatus.followUp, name: "Mira" },
       ]);
       setShowOptions(false); // Hide options after selection
     } else if (option === "Would you like to contact support?") {
       setChat((prevChat) => [
         ...prevChat,
         {
-          text: "Please Leave your contact details below and we will contact you back",
-          name: "Bot",
+          text: questions.options.orderStatus.contactSupport,
+          name: "Mira",
         },
       ]);
       setShowOptions(false);
@@ -29,7 +29,7 @@ export default function HandleOptionSelect({
         ...prevChat,
         {
           text: "2Bytes exists to solve complex business IT problems. Our mission is to deliver content-rich solutions that save our customers time and money.",
-          name: "Bot",
+          name: "Mira",
         },
       ]);
       setShowOptions(false);
