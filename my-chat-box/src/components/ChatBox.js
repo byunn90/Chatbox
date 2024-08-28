@@ -14,7 +14,7 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
   const [isNameEntered, setIsNameEntered] = useState(false); // State to check if the name is entered
   const [currentQuestion, setCurrentQuestion] = useState("greeting"); // State to track the current question
   const [showOptions, setShowOptions] = useState(false); // State to handle showing options
-
+  const botName = "Mira";
   // Call ChatQuestions with the updated name
   const questions = ChatQuestions(setInputValue);
 
@@ -30,6 +30,7 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
     questions,
     currentQuestion,
     setCurrentQuestion,
+    botName,
   });
 
   const { handleOptionSelect } = HandleOptionSelect({
@@ -38,6 +39,7 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
     chat,
     questions,
     name,
+    botName,
   });
 
   const { handleKeyDown } = HandleKeyDown(handleSendMessage);
@@ -50,7 +52,7 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
     <div className="chatbox">
       <div className="chatbox-header">
         <span>
-          Mira
+          {botName}
           <img src={chatGirl} alt="Chat Assistant" />
         </span>
         <button onClick={handleChatToggle}>&times;</button>
