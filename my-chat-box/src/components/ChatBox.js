@@ -11,26 +11,32 @@ import ChatQuestions from "./question";
 function ChatBox({ handleChatToggle, setChat, chat }) {
   const [inputValue, setInputValue] = useState("");
   const [name, setName] = useState(""); // State to store the user's name
+  const [email, setEmail] = useState(""); // State to store the user's email
   const [isNameEntered, setIsNameEntered] = useState(false); // State to check if the name is entered
+  const [isEmailEntered, setIsEmailEntered] = useState(false); // State to check if the email is entered
   const [currentQuestion, setCurrentQuestion] = useState("greeting"); // State to track the current question
   const [showOptions, setShowOptions] = useState(false); // State to handle showing options
-  const botName = "Mira";
+
   // Call ChatQuestions with the updated name
-  const questions = ChatQuestions(setInputValue);
+  const questions = ChatQuestions();
 
   const { handleSendMessage } = HandleSendMessage({
     inputValue,
     setInputValue,
     setName,
+    setEmail,
     setChat,
     chat,
     name,
+    email,
+    isNameEntered,
+    isEmailEntered,
     setIsNameEntered,
+    setIsEmailEntered,
     setShowOptions,
     questions,
     currentQuestion,
     setCurrentQuestion,
-    botName,
   });
 
   const { handleOptionSelect } = HandleOptionSelect({
@@ -39,7 +45,7 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
     chat,
     questions,
     name,
-    botName,
+    setCurrentQuestion,
   });
 
   const { handleKeyDown } = HandleKeyDown(handleSendMessage);
@@ -52,7 +58,7 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
     <div className="chatbox">
       <div className="chatbox-header">
         <span>
-          {botName}
+          Mira
           <img src={chatGirl} alt="Chat Assistant" />
         </span>
         <button onClick={handleChatToggle}>&times;</button>
@@ -61,7 +67,26 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
         {chat.map((message, index) => (
           <li key={index}>
             <div>{message.name}</div> {/* Displaying the sender's name */}
-            <div className="chat-bubble">{message.text}</div>
+            <div className="chat-bubble">
+              {message.text}
+              {/* Render options as buttons inside the chat bubble */}
+              {message.name === "Bot" &&
+                message.text === questions.greeting &&
+                showOptions && (
+                  <div className="options">
+                    {questions.options.orderStatus.question.map(
+                      (option, index) => (
+                        <button
+                          key={index}
+                          onClick={() => handleOptionSelect(option)}
+                        >
+                          {option}
+                        </button>
+                      )
+                    )}
+                  </div>
+                )}
+            </div>
           </li>
         ))}
         {!isNameEntered && (
@@ -73,29 +98,23 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
         )}
       </ul>
       <div className="chatbox-footer">
-        {showOptions ? (
-          <div className="options">
-            {questions.options.orderStatus.question.map((option, index) => (
-              <button key={index} onClick={() => handleOptionSelect(option)}>
-                {option}
-              </button>
-            ))}
-          </div>
-        ) : (
-          <>
-            <input
-              type="text"
-              className="chat-window-message"
-              value={inputValue}
-              onChange={handleInputChange}
-              onKeyDown={handleKeyDown}
-              placeholder={isNameEntered ? "Type a message" : "Enter your name"}
-            />
-            <div className="fontAwesome-Icons">
-              <FontAwesomeIcon icon={faPaperclip} className="icon" />
-            </div>
-          </>
-        )}
+        <input
+          type="text"
+          className="chat-window-message"
+          value={inputValue}
+          onChange={handleInputChange}
+          onKeyDown={handleKeyDown}
+          placeholder={
+            isNameEntered && !isEmailEntered
+              ? "Enter your email address"
+              : isNameEntered
+              ? "Type a message"
+              : "Enter your name"
+          }
+        />
+        <div className="fontAwesome-Icons">
+          <FontAwesomeIcon icon={faPaperclip} className="icon" />
+        </div>
       </div>
     </div>
   );
