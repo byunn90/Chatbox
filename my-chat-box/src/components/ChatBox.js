@@ -7,7 +7,7 @@ import HandleOptionSelect from "./HandleOptionSelect";
 import HandleKeyDown from "./HandleKeyDown";
 import HandleSendMessage from "./HandleSendMessage";
 import ChatQuestions from "./question";
-
+// Write what are the net steps
 function ChatBox({ handleChatToggle, setChat, chat }) {
   const [inputValue, setInputValue] = useState("");
   const [name, setName] = useState(""); // State to store the user's name
