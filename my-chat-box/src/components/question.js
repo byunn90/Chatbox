@@ -10,11 +10,16 @@ function ChatQuestions() {
         ],
         followUp: "Can you please provide your order number?",
         contactSupport:
-          "Please provide us with your contact details and a detail of the issue",
+          "Please provide us with your contact details and a description of the issue.",
       },
       productInfo: {
         question: "Would you like to know more about a specific product?",
         followUp: "Which product are you interested in?",
+      },
+      infoIssue: {
+        question: ["Damage Product?", "Refund?", "Track Order?"],
+        followUp:
+          "Can you please provide a description of the issue so we know exactly how to assist you?",
       },
       technicalSupport: {
         question: "Do you need help with a product or service?",

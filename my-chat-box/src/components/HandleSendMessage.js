@@ -49,9 +49,18 @@ export default function HandleSendMessage({
         { text: `Email entered: ${enteredEmail}`, name },
         { text: "Connecting you to support...", name: "Bot" },
       ]);
+
       setInputValue(""); // Clear the input field
       setShowOptions(false); // Hide options after email is entered
-      return;
+
+      // Set the next question to infoIssue after the email is entered
+      setCurrentQuestion("infoIssue");
+      setChat((prevChat) => [
+        ...prevChat,
+        { text: questions.options.infoIssue.question.join(" "), name: "Bot" },
+      ]);
+
+      return; // Exit the function after handling email input
     }
 
     // Continue with other input handling...
@@ -120,7 +129,10 @@ export default function HandleSendMessage({
         text: questions.options.productInfo.followUp,
       };
     } else if (current === "contactSupport") {
-      return { key: "closing", text: questions.closing };
+      return {
+        key: "infoIssue",
+        text: questions.options.infoIssue.question.join(" "),
+      };
     }
     return { key: "closing", text: questions.closing };
   };

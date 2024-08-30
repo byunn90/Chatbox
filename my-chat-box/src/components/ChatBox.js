@@ -7,7 +7,7 @@ import HandleOptionSelect from "./HandleOptionSelect";
 import HandleKeyDown from "./HandleKeyDown";
 import HandleSendMessage from "./HandleSendMessage";
 import ChatQuestions from "./question";
-// Write what are the net steps
+
 function ChatBox({ handleChatToggle, setChat, chat }) {
   const [inputValue, setInputValue] = useState("");
   const [name, setName] = useState(""); // State to store the user's name
@@ -17,7 +17,6 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
   const [currentQuestion, setCurrentQuestion] = useState("greeting"); // State to track the current question
   const [showOptions, setShowOptions] = useState(false); // State to handle showing options
 
-  // Call ChatQuestions with the updated name
   const questions = ChatQuestions();
 
   const { handleSendMessage } = HandleSendMessage({
@@ -54,6 +53,28 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
     setInputValue(e.target.value);
   };
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setChat([
+        ...chat,
+        {
+          name,
+          text: (
+            <div className="file-upload">
+              <FontAwesomeIcon icon={faPaperclip} className="file-icon" />
+              <span className="file-name">{file.name}</span>
+            </div>
+          ),
+        },
+      ]);
+    }
+  };
+
+  const handleFileClick = () => {
+    document.getElementById("fileInput").click();
+  };
+
   return (
     <div className="chatbox">
       <div className="chatbox-header">
@@ -70,22 +91,34 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
             <div className="chat-bubble">
               {message.text}
               {/* Render options as buttons inside the chat bubble */}
-              {message.name === "Bot" &&
-                message.text === questions.greeting &&
-                showOptions && (
-                  <div className="options">
-                    {questions.options.orderStatus.question.map(
+              {message.name === "Bot" && showOptions && (
+                <div className="options">
+                  {currentQuestion === "greeting" &&
+                    questions.options.orderStatus.question.map(
                       (option, index) => (
                         <button
                           key={index}
+                          className="option-button"
                           onClick={() => handleOptionSelect(option)}
                         >
                           {option}
                         </button>
                       )
                     )}
-                  </div>
-                )}
+                  {currentQuestion === "infoIssue" &&
+                    questions.options.infoIssue.question.map(
+                      (option, index) => (
+                        <button
+                          key={index}
+                          className="option-button"
+                          onClick={() => handleOptionSelect(option)}
+                        >
+                          {option}
+                        </button>
+                      )
+                    )}
+                </div>
+              )}
             </div>
           </li>
         ))}
@@ -112,7 +145,13 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
               : "Enter your name"
           }
         />
-        <div className="fontAwesome-Icons">
+        <input
+          type="file"
+          id="fileInput"
+          style={{ display: "none" }} // Hides the file input element
+          onChange={handleFileChange}
+        />
+        <div className="fontAwesome-Icons" onClick={handleFileClick}>
           <FontAwesomeIcon icon={faPaperclip} className="icon" />
         </div>
       </div>

@@ -1,3 +1,5 @@
+/* Consolidated Chatbox Styles */
+
 /* OpenChatBox styles */
 .OpenChatBox {
   position: fixed;
@@ -11,99 +13,41 @@
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   cursor: pointer;
-  font-size: 16px;
+  font-size: 20px;
   text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .OpenChatBox:hover {
   background-color: #0056b3;
+  transform: scale(1.05);
 }
 
 /* Chatbox styles */
 .chatbox {
   position: fixed;
-  height: 350px;
   bottom: 20px;
   right: 20px;
-  width: 300px;
-  border: 20px solid #f5eded;
-  padding: 10px;
+  width: 350px;
+  height: 400px;
   background-color: white;
-  border-radius: 10px; /* Rounded corners */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  box-shadow: 0 0 10px rgba(99, 56, 56, 0.1); /* Box shadow for the chatbox */
-  text-decoration: none;
-}
-
-.chatbox-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 5px;
-  margin-bottom: 10px;
-}
-
-.chatbox-header button {
-  background: none;
-  border: none;
-  font-size: 18px;
-  cursor: pointer;
-}
-
-.chatbox-content {
-  flex: 1;
-  overflow-y: auto;
-}
-
-.chatbox-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 5px;
-  margin-top: 10px;
-}
-
-.chat-thread {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  flex-grow: 1; /* Allow the chat thread to grow and take available space */
-  overflow-y: auto; /* Enable vertical scrolling */
-}
-
-.chat-bubble {
-  max-width: 70%;
-  padding: 10px;
-  border-radius: 20px;
-  background-color: #f1f1f1;
-  margin-left: auto;
-  margin-right: 10px;
-  margin-bottom: 15px;
-  word-wrap: break-word; /* Ensure long words wrap inside the bubble */
-}
-
-/* chatbox.css */
-
-/* General chatbox styling */
-.chatbox {
-  width: 300px;
   border: 1px solid #ddd;
-  border-radius: 10px;
+  border-radius: 15px;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  justify-content: space-between;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* More prominent shadow for a modern look */
+  overflow: hidden; /* Ensures that content stays within the box */
 }
 
 .chatbox-header {
-  background-color: #4a90e2;
+  background: linear-gradient(135deg, #4a90e2, #007bff);
   color: #fff;
-  padding: 10px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  padding: 15px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -111,33 +55,56 @@
 
 .chatbox-header span {
   font-weight: bold;
+  font-size: 18px;
 }
 
 .chatbox-header button {
   background: none;
   border: none;
   color: #fff;
-  font-size: 16px;
+  font-size: 20px;
   cursor: pointer;
+}
+
+.chatbox-header img {
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  margin-left: 15px;
+  vertical-align: middle;
+}
+
+.chatbox-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 15px;
+  background-color: #f9f9f9;
 }
 
 .chat-thread {
   list-style-type: none;
-  padding: 10px;
+  padding: 0;
   margin: 0;
   flex-grow: 1;
-  overflow-y: auto;
+  overflow-y: auto; /* Enable vertical scrolling */
 }
 
 .chat-thread li {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .chat-bubble {
   background-color: #f1f1f1;
-  padding: 10px;
-  border-radius: 20px;
-  max-width: 80%;
+  padding: 12px 18px;
+  border-radius: 25px;
+  max-width: 75%;
+  word-wrap: break-word;
+  margin-left: auto;
+  margin-right: 10px;
+  margin-bottom: 15px;
+  margin-top: 10px;
+  font-size: 14px;
+  line-height: 1.5;
 }
 
 .chat-bubble.bot {
@@ -145,23 +112,60 @@
 }
 
 .chatbox-footer {
-  padding: 10px;
+  padding: 15px;
   border-top: 1px solid #ddd;
   display: flex;
+  justify-content: space-between;
   align-items: center;
+  background-color: #f9f9f9;
 }
 
 .chat-window-message {
   flex-grow: 1;
-  padding: 10px;
-  border-radius: 20px;
+  padding: 10px 15px;
+  border-radius: 25px;
   border: 1px solid #ddd;
   margin-right: 10px;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
 }
 
+.chat-window-message:focus {
+  border-color: #4a90e2;
+  outline: none;
+}
+
+/* Styling the FontAwesome Icons container */
 .fontAwesome-Icons {
   display: flex;
-  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color: #f1f1f1;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease,
+    transform 0.3s ease;
+}
+
+/* Styling the paperclip icon */
+.fontAwesome-Icons .icon {
+  color: #007bff;
+  font-size: 20px;
+  transition: color 0.3s ease;
+}
+
+/* Hover effect for the container */
+.fontAwesome-Icons:hover {
+  background-color: #e2e2e2;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  transform: scale(1.1);
+}
+
+/* Hover effect for the icon */
+.fontAwesome-Icons:hover .icon {
+  color: #0056b3;
 }
 
 /* Styling for the options (multiple-choice buttons) */
@@ -171,29 +175,54 @@
   gap: 10px;
 }
 
-.options button {
-  padding: 10px 10px;
+.option-button {
+  padding: 10px 15px;
   background-color: #4a90e2;
   color: white;
   border: none;
   border-radius: 30px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  font-size: 14px;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.options button:hover {
+.option-button:hover {
   background-color: #357ab7;
+  transform: translateY(-2px); /* Creates a slight lift effect on hover */
 }
 
-.options button:focus {
+.option-button:focus {
   outline: none;
   background-color: #357ab7;
 }
 
-.chatbox-header img {
-  border-radius: 10px;
-  width: 30px;
-  height: auto;
-  margin-left: 10px;
-  vertical-align: middle;
+/* Styling for the file upload display */
+.file-upload {
+  display: flex;
+  align-items: center;
+  background-color: #e8f0fe;
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin-top: 10px;
+  border: 1px solid #007bff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.file-icon {
+  color: #007bff;
+  margin-right: 8px;
+}
+
+.file-name {
+  font-weight: bold;
+  color: #0056b3;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.file-name:hover {
+  color: #003f8a;
+  text-decoration: none;
 }
