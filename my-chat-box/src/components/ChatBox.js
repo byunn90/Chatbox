@@ -7,6 +7,7 @@ import HandleOptionSelect from "./HandleOptionSelect";
 import HandleKeyDown from "./HandleKeyDown";
 import HandleSendMessage from "./HandleSendMessage";
 import ChatQuestions from "./question";
+import handleFileChange from "./handleFileChange";
 
 function ChatBox({ handleChatToggle, setChat, chat }) {
   const [inputValue, setInputValue] = useState("");
@@ -51,24 +52,6 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
-  };
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setChat([
-        ...chat,
-        {
-          name,
-          text: (
-            <div className="file-upload">
-              <FontAwesomeIcon icon={faPaperclip} className="file-icon" />
-              <span className="file-name">{file.name}</span>
-            </div>
-          ),
-        },
-      ]);
-    }
   };
 
   const handleFileClick = () => {
@@ -149,7 +132,7 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
           type="file"
           id="fileInput"
           style={{ display: "none" }} // Hides the file input element
-          onChange={handleFileChange}
+          onChange={(e) => handleFileChange(e, name, chat, setChat)} // Correctly passing name, chat, and setChat
         />
         <div className="fontAwesome-Icons" onClick={handleFileClick}>
           <FontAwesomeIcon icon={faPaperclip} className="icon" />
