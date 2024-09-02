@@ -10,6 +10,7 @@ import ChatQuestions from "./question";
 import handleFileChange from "./handleFileChange";
 // NOTE line 91-92 the styles is not working. Get Help
 // NOTE Fix the download icon looks horrible
+// Note Back-end Issue not collecting the whole chat
 function ChatBox({ handleChatToggle, setChat, chat }) {
   const [inputValue, setInputValue] = useState("");
   const [name, setName] = useState(""); // State to store the user's name
