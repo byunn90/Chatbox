@@ -72,10 +72,9 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
       <ul className="chat-thread">
         {chat.map((message, index) => (
           <li key={index}>
-            <div>{message.name}</div> {/* Displaying the sender's name */}
+            <div>{message.name}</div>
             <div className="chat-bubble">
               {message.text}
-              {/* Render options as buttons inside the chat bubble */}
               {message.name === "Bot" && showOptions && (
                 <div className="options">
                   {currentQuestion === "greeting" &&
@@ -90,18 +89,21 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
                         </button>
                       )
                     )}
-                  {currentQuestion === "infoIssue" &&
-                    questions.options.infoIssue.question.map(
-                      (option, index) => (
-                        <button
-                          key={index}
-                          className="option-button"
-                          onClick={() => handleOptionSelect(option)}
-                        >
-                          {option}
-                        </button>
-                      )
-                    )}
+                  {currentQuestion === "infoIssue" && (
+                    <div>
+                      {questions.options.infoIssue.question.map(
+                        (option, index) => (
+                          <button
+                            key={index}
+                            className="option-button"
+                            onClick={() => handleOptionSelect(option)}
+                          >
+                            {option}
+                          </button>
+                        )
+                      )}
+                    </div>
+                  )}
                 </div>
               )}
             </div>
@@ -133,8 +135,8 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
         <input
           type="file"
           id="fileInput"
-          style={{ display: "none" }} // Hides the file input element
-          onChange={(e) => handleFileChange(e, name, chat, setChat)} // Correctly passing name, chat, and setChat
+          style={{ display: "none" }}
+          onChange={(e) => handleFileChange(e, name, chat, setChat)}
         />
         <div className="fontAwesome-Icons" onClick={handleFileClick}>
           <FontAwesomeIcon icon={faPaperclip} className="icon" />

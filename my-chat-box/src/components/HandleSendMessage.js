@@ -16,6 +16,44 @@ export default function HandleSendMessage({
   currentQuestion,
   setCurrentQuestion,
 }) {
+  const determineNextQuestion = (input, current, questions) => {
+    if (current === "greeting") {
+      if (input.toLowerCase().includes("order")) {
+        return {
+          key: "orderStatus",
+          text: questions.options.orderStatus.question,
+        };
+      } else if (input.toLowerCase().includes("product")) {
+        return {
+          key: "productInfo",
+          text: questions.options.productInfo.question,
+        };
+      } else if (input.toLowerCase().includes("support")) {
+        return {
+          key: "contactSupport",
+          text: questions.options.orderStatus.contactSupport,
+        };
+      }
+      return { key: "closing", text: questions.closing };
+    } else if (current === "orderStatus") {
+      return {
+        key: "orderStatus",
+        text: questions.options.orderStatus.followUp,
+      };
+    } else if (current === "productInfo") {
+      return {
+        key: "productInfo",
+        text: questions.options.productInfo.followUp,
+      };
+    } else if (current === "contactSupport") {
+      return {
+        key: "infoIssue",
+        text: questions.options.infoIssue.question.join(" "),
+      };
+    }
+    return { key: "closing", text: questions.closing };
+  };
+
   const handleSendMessage = async () => {
     if (!inputValue.trim()) return;
 
@@ -65,11 +103,14 @@ export default function HandleSendMessage({
 
     // Continue with other input handling...
     try {
+      const concatenatedMessages =
+        chat.map((message) => message.text).join(" ") + " " + inputValue.trim();
+
       const postData = {
         name: name,
         email: email,
         createdAt: new Date().toISOString().split("T")[0],
-        chatMessage: inputValue.trim(),
+        chatMessage: concatenatedMessages, // Concatenated messages
       };
 
       await fetch("http://localhost:5228/chatbox", {
@@ -97,44 +138,6 @@ export default function HandleSendMessage({
     } catch (error) {
       console.error("Send message error:", error);
     }
-  };
-
-  const determineNextQuestion = (input, current, questions) => {
-    if (current === "greeting") {
-      if (input.toLowerCase().includes("order")) {
-        return {
-          key: "orderStatus",
-          text: questions.options.orderStatus.question,
-        };
-      } else if (input.toLowerCase().includes("product")) {
-        return {
-          key: "productInfo",
-          text: questions.options.productInfo.question,
-        };
-      } else if (input.toLowerCase().includes("support")) {
-        return {
-          key: "contactSupport",
-          text: questions.options.orderStatus.contactSupport,
-        };
-      }
-      return { key: "closing", text: questions.closing };
-    } else if (current === "orderStatus") {
-      return {
-        key: "orderStatus",
-        text: questions.options.orderStatus.followUp,
-      };
-    } else if (current === "productInfo") {
-      return {
-        key: "productInfo",
-        text: questions.options.productInfo.followUp,
-      };
-    } else if (current === "contactSupport") {
-      return {
-        key: "infoIssue",
-        text: questions.options.infoIssue.question.join(" "),
-      };
-    }
-    return { key: "closing", text: questions.closing };
   };
 
   return { handleSendMessage };
