@@ -9,7 +9,7 @@ import HandleSendMessage from "./HandleSendMessage";
 import ChatQuestions from "./question";
 import handleFileChange from "./handleFileChange";
 // NOTE line 91-92 the styles is not working. Get Help
-// NOTE Fix the download icon looks horrible
+// NOTE Fix the download icon
 // Note Back-end Issue not collecting the whole chat
 function ChatBox({ handleChatToggle, setChat, chat }) {
   const [inputValue, setInputValue] = useState("");
@@ -90,7 +90,7 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
                       )
                     )}
                   {currentQuestion === "infoIssue" && (
-                    <div>
+                    <div className="options">
                       {questions.options.infoIssue.question.map(
                         (option, index) => (
                           <button
