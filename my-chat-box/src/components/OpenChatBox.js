@@ -1,7 +1,9 @@
+import React from "react";
 import "./OpenChatBox.css";
+
 function OpenChatBox() {
   return (
-    <div class="OpenChatBox">
+    <div className="OpenChatBox">
       <span>Open</span>
     </div>
   );

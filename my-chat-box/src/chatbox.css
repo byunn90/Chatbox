@@ -226,3 +226,6 @@
   color: #003f8a;
   text-decoration: none;
 }
+.chatbox .chat-bubble.bot {
+  background-color: #e2f1ff; /* Ensure this is applied */
+}
