@@ -14,15 +14,17 @@ export default function HandleOptionSelect({
         ...prevChat,
         { text: "Please enter your email address:", name: "Bot" },
       ]);
-      setShowOptions(false);
       setCurrentQuestion("contactSupport"); // Expect email next
     } else if (option === "About us?") {
       setChat((prevChat) => [
         ...prevChat,
         { text: "We are a company dedicated to...", name: "Bot" },
       ]);
-      setShowOptions(false);
+    } else {
+      // Handle other options or set a default behavior if needed
     }
+
+    setShowOptions(false); // Hide options after any selection
   };
 
   return { handleOptionSelect };

@@ -1,4 +1,10 @@
-/* Consolidated Chatbox Styles */
+/* General Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Arial", sans-serif; /* Use a clean, modern font */
+}
 
 /* OpenChatBox styles */
 .OpenChatBox {
@@ -15,37 +21,39 @@
   border-radius: 50%;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   cursor: pointer;
-  font-size: 20px;
+  font-size: 24px; /* Slightly larger for better visibility */
   text-decoration: none;
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .OpenChatBox:hover {
   background-color: #0056b3;
-  transform: scale(1.05);
+  transform: scale(
+    1.1
+  ); /* Slightly larger scale for better interaction feedback */
 }
 
 /* Chatbox styles */
 .chatbox {
   position: fixed;
-  bottom: 20px;
+  bottom: 80px; /* Allows space for the OpenChatBox button */
   right: 20px;
-  width: 350px;
-  height: 400px;
+  width: 400px;
+  height: 500px;
   background-color: white;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc; /* Softer border color */
   border-radius: 15px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* More prominent shadow for a modern look */
-  overflow: hidden; /* Ensures that content stays within the box */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Slightly stronger shadow for more depth */
+  overflow: hidden;
 }
 
 .chatbox-header {
   background: linear-gradient(135deg, #4a90e2, #007bff);
   color: #fff;
-  padding: 15px;
+  padding: 20px; /* More padding for better spacing */
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   display: flex;
@@ -55,30 +63,36 @@
 
 .chatbox-header span {
   font-weight: bold;
-  font-size: 18px;
+  font-size: 20px; /* Slightly larger font for readability */
 }
 
 .chatbox-header button {
   background: none;
   border: none;
   color: #fff;
-  font-size: 20px;
+  font-size: 24px; /* Larger font for better visibility */
   cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.chatbox-header button:hover {
+  transform: rotate(
+    90deg
+  ); /* Rotate the close button on hover for a modern effect */
 }
 
 .chatbox-header img {
   border-radius: 50%;
-  width: 35px;
-  height: 35px;
+  width: 40px;
+  height: 40px;
   margin-left: 15px;
-  vertical-align: middle;
 }
 
 .chatbox-content {
   flex: 1;
   overflow-y: auto;
-  padding: 15px;
-  background-color: #f9f9f9;
+  padding: 20px;
+  background-color: #f1f1f1; /* Softer background color for contrast */
 }
 
 .chat-thread {
@@ -86,7 +100,7 @@
   padding: 0;
   margin: 0;
   flex-grow: 1;
-  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-y: auto;
 }
 
 .chat-thread li {
@@ -94,21 +108,23 @@
 }
 
 .chat-bubble {
-  background-color: #f1f1f1;
-  padding: 12px 18px;
+  background-color: #ffffff;
+  padding: 15px 20px;
   border-radius: 25px;
-  max-width: 75%;
+  max-width: 80%;
   word-wrap: break-word;
   margin-left: auto;
   margin-right: 10px;
   margin-bottom: 15px;
   margin-top: 10px;
-  font-size: 14px;
-  line-height: 1.5;
+  font-size: 15px;
+  line-height: 1.6;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Added shadow for depth */
 }
 
 .chat-bubble.bot {
   background-color: #e2f1ff;
+  border: 1px solid #b3daff; /* Light border for better distinction */
 }
 
 .chatbox-footer {
@@ -117,16 +133,16 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #f9f9f9;
+  background-color: #fafafa; /* Lighter background for the footer */
 }
 
 .chat-window-message {
   flex-grow: 1;
-  padding: 10px 15px;
+  padding: 12px 20px;
   border-radius: 25px;
   border: 1px solid #ddd;
   margin-right: 10px;
-  font-size: 14px;
+  font-size: 15px;
   transition: border-color 0.3s ease;
 }
 
@@ -141,10 +157,10 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  background-color: #f1f1f1;
+  background-color: #e1e4e8; /* Softer background color */
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   transition: background-color 0.3s ease, box-shadow 0.3s ease,
     transform 0.3s ease;
 }
@@ -158,7 +174,7 @@
 
 /* Hover effect for the container */
 .fontAwesome-Icons:hover {
-  background-color: #e2e2e2;
+  background-color: #d0d4da;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   transform: scale(1.1);
 }
@@ -172,38 +188,47 @@
 .options {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%; /* Ensure .options container takes full width of its parent */
+  max-width: 300px; /* Optional: set a max-width if you want to limit the size */
+  margin: 0 auto;
 }
 
 .option-button {
-  padding: 10px 15px;
+  padding: 8px 12px;
   background-color: #4a90e2;
   color: white;
-  border: none;
-  border-radius: 30px;
+  border: 1px solid #007bff;
+  border-radius: 20px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.3s ease;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: bold;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 100%; /* Make all buttons take up the full width of the .options container */
+  box-sizing: border-box; /* Ensures padding is included in the width calculation */
+  text-align: center; /* Center the text within the button */
 }
 
 .option-button:hover {
   background-color: #357ab7;
-  transform: translateY(-2px); /* Creates a slight lift effect on hover */
+  transform: translateY(-2px);
+  border-color: #0056b3;
 }
 
 .option-button:focus {
   outline: none;
   background-color: #357ab7;
+  border-color: #0056b3;
 }
-
 /* Styling for the file upload display */
 .file-upload {
   display: flex;
   align-items: center;
   background-color: #e8f0fe;
-  padding: 10px 15px;
+  padding: 12px 20px;
   border-radius: 8px;
   margin-top: 10px;
   border: 1px solid #007bff;
@@ -212,7 +237,7 @@
 
 .file-icon {
   color: #007bff;
-  margin-right: 8px;
+  margin-right: 10px;
 }
 
 .file-name {
@@ -225,7 +250,4 @@
 .file-name:hover {
   color: #003f8a;
   text-decoration: none;
-}
-.chatbox .chat-bubble.bot {
-  background-color: #e2f1ff; /* Ensure this is applied */
 }

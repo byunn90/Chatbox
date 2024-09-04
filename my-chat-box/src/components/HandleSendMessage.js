@@ -85,11 +85,11 @@ export default function HandleSendMessage({
       setChat((prevChat) => [
         ...prevChat,
         { text: `Email entered: ${enteredEmail}`, name },
-        { text: "Connecting you to support...", name: "Bot" },
+        { text: "Please Select from the options below", name: "Bot" },
       ]);
 
       setInputValue(""); // Clear the input field
-      setShowOptions(false); // Hide options after email is entered
+      setShowOptions(true); // Hide options after email is entered
 
       // Set the next question to infoIssue after the email is entered
       setCurrentQuestion("infoIssue");

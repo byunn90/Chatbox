@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperclip } from "@fortawesome/free-solid-svg-icons";
 import "../chatbox.css";
@@ -8,17 +8,16 @@ import HandleKeyDown from "./HandleKeyDown";
 import HandleSendMessage from "./HandleSendMessage";
 import ChatQuestions from "./question";
 import handleFileChange from "./handleFileChange";
-// NOTE line 91-92 the styles is not working. Get Help
-// NOTE Fix the download icon looks horrible
-// Note Back-end Issue not collecting the whole chat
+import ConditionalOptions from "./ConditionalOption";
+
 function ChatBox({ handleChatToggle, setChat, chat }) {
   const [inputValue, setInputValue] = useState("");
-  const [name, setName] = useState(""); // State to store the user's name
-  const [email, setEmail] = useState(""); // State to store the user's email
-  const [isNameEntered, setIsNameEntered] = useState(false); // State to check if the name is entered
-  const [isEmailEntered, setIsEmailEntered] = useState(false); // State to check if the email is entered
-  const [currentQuestion, setCurrentQuestion] = useState("greeting"); // State to track the current question
-  const [showOptions, setShowOptions] = useState(false); // State to handle showing options
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [isNameEntered, setIsNameEntered] = useState(false);
+  const [isEmailEntered, setIsEmailEntered] = useState(false);
+  const [currentQuestion, setCurrentQuestion] = useState("greeting");
+  const [showOptions, setShowOptions] = useState(false);
 
   const questions = ChatQuestions();
 
@@ -60,6 +59,22 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
     document.getElementById("fileInput").click();
   };
 
+  const handleNameSubmit = () => {
+    if (inputValue.trim()) {
+      setName(inputValue.trim());
+      setIsNameEntered(true);
+      setShowOptions(true); // Show options after the name is entered
+      setInputValue(""); // Clear the input field
+      setChat((prevChat) => [
+        ...prevChat,
+        {
+          name: inputValue.trim(),
+          text: `Hello, ${inputValue.trim()}! How can I assist you today?`,
+        },
+      ]);
+    }
+  };
+
   return (
     <div className="chatbox">
       <div className="chatbox-header">
@@ -73,42 +88,10 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
         {chat.map((message, index) => (
           <li key={index}>
             <div>{message.name}</div>
-            <div className="chat-bubble">
-              {message.text}
-              {message.name === "Bot" && showOptions && (
-                <div className="options">
-                  {currentQuestion === "greeting" &&
-                    questions.options.orderStatus.question.map(
-                      (option, index) => (
-                        <button
-                          key={index}
-                          className="option-button"
-                          onClick={() => handleOptionSelect(option)}
-                        >
-                          {option}
-                        </button>
-                      )
-                    )}
-                  {currentQuestion === "infoIssue" && (
-                    <div className="options">
-                      {questions.options.infoIssue.question.map(
-                        (option, index) => (
-                          <button
-                            key={index}
-                            className="option-button"
-                            onClick={() => handleOptionSelect(option)}
-                          >
-                            {option}
-                          </button>
-                        )
-                      )}
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
+            <div className="chat-bubble">{message.text}</div>
           </li>
         ))}
+
         {!isNameEntered && (
           <li>
             <div className="chat-bubble">
@@ -116,6 +99,18 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
             </div>
           </li>
         )}
+        {isNameEntered && (
+          <li>
+            <ConditionalOptions
+              currentQuestion={currentQuestion}
+              questions={questions}
+              handleOptionSelect={handleOptionSelect}
+              showOptions={showOptions}
+            />
+          </li>
+        )}
+
+        {/* Render the ConditionalOptions component if options should be shown */}
       </ul>
       <div className="chatbox-footer">
         <input
@@ -123,7 +118,11 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
           className="chat-window-message"
           value={inputValue}
           onChange={handleInputChange}
-          onKeyDown={handleKeyDown}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              isNameEntered ? handleSendMessage() : handleNameSubmit();
+            }
+          }}
           placeholder={
             isNameEntered && !isEmailEntered
               ? "Enter your email address"
