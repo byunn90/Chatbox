@@ -9,7 +9,7 @@ import HandleSendMessage from "./HandleSendMessage";
 import ChatQuestions from "./question";
 import handleFileChange from "./handleFileChange";
 import ConditionalOptions from "./ConditionalOption";
-
+// Email i think not working back-end
 function ChatBox({ handleChatToggle, setChat, chat }) {
   const [inputValue, setInputValue] = useState("");
   const [name, setName] = useState("");

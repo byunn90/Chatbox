@@ -18,7 +18,10 @@ function ConditionalOptions({
       <button
         key={index}
         className="option-button"
-        onClick={() => handleOptionSelect(option)}
+        onClick={() => {
+          console.log("Option Selected:", option); // Debugging: Check the selected option
+          handleOptionSelect(option); // Pass the selected option back to the parent component
+        }}
       >
         {option}
       </button>

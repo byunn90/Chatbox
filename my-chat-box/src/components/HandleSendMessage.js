@@ -89,7 +89,7 @@ export default function HandleSendMessage({
       ]);
 
       setInputValue(""); // Clear the input field
-      setShowOptions(true); // Hide options after email is entered
+      setShowOptions(true); // Show options after email is entered
 
       // Set the next question to infoIssue after the email is entered
       setCurrentQuestion("infoIssue");
@@ -97,7 +97,6 @@ export default function HandleSendMessage({
         ...prevChat,
         { text: questions.options.infoIssue.question.join(" "), name: "Bot" },
       ]);
-
       return; // Exit the function after handling email input
     }
 
@@ -125,6 +124,66 @@ export default function HandleSendMessage({
       setInputValue(""); // Clear the input field after sending
 
       // Determine the next question based on user input
+      if (currentQuestion === "infoIssue") {
+        const lowerCaseInput = inputValue.toLowerCase().replace(/[?.,!]/g, ""); // Normalize input by converting to lowercase and removing punctuation
+
+        if (lowerCaseInput.includes("refund")) {
+          // Set a state to expect a detailed description
+          setCurrentQuestion("refundDescription");
+          setChat((prevChat) => [
+            ...prevChat,
+            {
+              text: "You selected Refund. Can you please give a detailed description on why you would like the refund?",
+              name: "Bot",
+            },
+          ]);
+        } else if (lowerCaseInput.includes("track order")) {
+          setChat((prevChat) => [
+            ...prevChat,
+            {
+              text: "You selected Track Order. Let's proceed with that.",
+              name: "Bot",
+            },
+          ]);
+        } else if (lowerCaseInput.includes("damage product")) {
+          setChat((prevChat) => [
+            ...prevChat,
+            {
+              text: "You selected Damage Product. Let's proceed with that.",
+              name: "Bot",
+            },
+          ]);
+        } else {
+          // Default case if none of the options match
+          setChat((prevChat) => [
+            ...prevChat,
+            {
+              text: "Please select a valid option from Damage Product, Refund, or Track Order.",
+              name: "Bot",
+            },
+          ]);
+        }
+        return; // Exit after handling infoIssue
+      }
+
+      // Handling detailed description for refund
+      if (currentQuestion === "refundDescription") {
+        const refundDescription = inputValue.trim();
+        setChat((prevChat) => [
+          ...prevChat,
+          { text: `Refund description: ${refundDescription}`, name },
+          {
+            text: "Thank you for the details! We'll process your refund request.",
+            name: "Bot",
+          },
+        ]);
+
+        setCurrentQuestion("closing"); // Move to closing question or next step
+        setInputValue(""); // Clear input
+        return;
+      }
+
+      // Handle other questions
       let nextQuestion = determineNextQuestion(
         inputValue,
         currentQuestion,
@@ -136,6 +195,10 @@ export default function HandleSendMessage({
         { text: nextQuestion.text, name: "Bot" },
       ]);
     } catch (error) {
+      setChat((prevChat) => [
+        ...prevChat,
+        { text: "Oops! Something went wrong. Please try again.", name: "Bot" },
+      ]);
       console.error("Send message error:", error);
     }
   };
