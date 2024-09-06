@@ -19,7 +19,6 @@ function ConditionalOptions({
         key={index}
         className="option-button"
         onClick={() => {
-          console.log("Option Selected:", option); // Debugging: Check the selected option
           handleOptionSelect(option); // Pass the selected option back to the parent component
         }}
       >
@@ -34,6 +33,10 @@ function ConditionalOptions({
         renderOptions(questions.options.orderStatus.question)}
       {currentQuestion === "infoIssue" &&
         renderOptions(questions.options.infoIssue.question)}
+      {currentQuestion === "productInfo" &&
+        renderOptions(questions.options.question)}
+      {currentQuestion === "technicalSupport" &&
+        renderOptions(questions.options.question)}
     </div>
   );
 }

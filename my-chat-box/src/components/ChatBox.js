@@ -9,10 +9,12 @@ import HandleSendMessage from "./HandleSendMessage";
 import ChatQuestions from "./question";
 import handleFileChange from "./handleFileChange";
 import ConditionalOptions from "./ConditionalOption";
-// Email i think not working back-end Done!
-// Need to work on more follow up questions
+// Things to work on
+// Need to work on more follow up questions`
 // Need more input values
 // Later need a admin pannel
+// Need a function to close the chat
+// If they still need help they should be able to go back to start of the chat again
 function ChatBox({ handleChatToggle, setChat, chat }) {
   const [inputValue, setInputValue] = useState("");
   const [name, setName] = useState("");

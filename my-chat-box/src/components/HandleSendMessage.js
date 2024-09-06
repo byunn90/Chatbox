@@ -95,7 +95,7 @@ export default function HandleSendMessage({
       setCurrentQuestion("infoIssue");
       setChat((prevChat) => [
         ...prevChat,
-        { text: questions.options.infoIssue.question.join(" "), name: "Bot" },
+        // { text: questions.options.infoIssue.question.join(" "), name: "Bot" },
       ]);
       return; // Exit the function after handling email input
     }
@@ -129,7 +129,8 @@ export default function HandleSendMessage({
 
         if (lowerCaseInput.includes("refund")) {
           // Set a state to expect a detailed description
-          setCurrentQuestion("refundDescription");
+          // setCurrentQuestion("refundDescription");
+
           setChat((prevChat) => [
             ...prevChat,
             {
@@ -149,7 +150,7 @@ export default function HandleSendMessage({
           setChat((prevChat) => [
             ...prevChat,
             {
-              text: "You selected Damage Product. Let's proceed with that.",
+              text: "You selected Damage Product. Can you please type your mobile number and also take a photo of the damaged area of the product and upload it in the chatbox?",
               name: "Bot",
             },
           ]);
@@ -158,7 +159,7 @@ export default function HandleSendMessage({
           setChat((prevChat) => [
             ...prevChat,
             {
-              text: "Please select a valid option from Damage Product, Refund, or Track Order.",
+              text: "Please Type a valid option from Damage Product, Refund, or Track Order.",
               name: "Bot",
             },
           ]);
