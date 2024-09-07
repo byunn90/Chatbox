@@ -13,6 +13,7 @@ import ConditionalOptions from "./ConditionalOption";
 // Need to work on more follow up questions`
 // Need more input values
 // Later need a admin pannel
+// Need to add question from the diagram
 // Need a function to close the chat
 // If they still need help they should be able to go back to start of the chat again
 function ChatBox({ handleChatToggle, setChat, chat }) {
