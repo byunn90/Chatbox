@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperclip } from "@fortawesome/free-solid-svg-icons";
 import "../chatbox.css";
+import twoBytesLogo from "./images/2BYTES_logo-LoRes (2).png";
 import chatGirl from "./images/chatgirl.webp";
 import HandleOptionSelect from "./HandleOptionSelect";
 import HandleKeyDown from "./HandleKeyDown";
@@ -85,7 +86,7 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
     <div className="chatbox">
       <div className="chatbox-header">
         <span>
-          Mira
+          <img src={twoBytesLogo} alt="Chat Assistant" />
           <img src={chatGirl} alt="Chat Assistant" />
         </span>
         <button onClick={handleChatToggle}>&times;</button>
