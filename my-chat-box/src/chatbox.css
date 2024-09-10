@@ -251,3 +251,11 @@
   color: #003f8a;
   text-decoration: none;
 }
+
+.chat-time {
+  font-size: 11px;
+  color: #888; /* Light grey for subtlety */
+  margin-top: 5px; /* Space between the message and the time */
+  display: block; /* Ensure it appears below the message */
+  text-align: right; /* Align the time to the right */
+}

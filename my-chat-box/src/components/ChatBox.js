@@ -10,12 +10,7 @@ import HandleSendMessage from "./HandleSendMessage";
 import ChatQuestions from "./question";
 import handleFileChange from "./handleFileChange";
 import ConditionalOptions from "./ConditionalOption";
-// Things to work on
-// Need to work on more follow up questions`
-// Need more input values
-// Later need a admin pannel
-// Need a function to close the chat
-// If they still need help they should be able to go back to start of the chat again
+import getCurrentTime from "./timeUtils";
 function ChatBox({ handleChatToggle, setChat, chat }) {
   const [inputValue, setInputValue] = useState("");
   const [name, setName] = useState("");
@@ -44,6 +39,7 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
     questions,
     currentQuestion,
     setCurrentQuestion,
+    getCurrentTime, // Pass the time function
   });
 
   const { handleOptionSelect } = HandleOptionSelect({
@@ -55,8 +51,6 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
     setCurrentQuestion,
   });
 
-  const { handleKeyDown } = HandleKeyDown(handleSendMessage);
-
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
@@ -66,7 +60,7 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
   };
 
   const handleNameSubmit = () => {
-    if (inputValue.trim()) {
+    if (inputValue.trim().length > 3) {
       setName(inputValue.trim());
       setIsNameEntered(true);
       setShowOptions(true); // Show options after the name is entered
@@ -76,6 +70,15 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
         {
           name: inputValue.trim(),
           text: `Hello, ${inputValue.trim()}! How can I assist you today?`,
+          time: getCurrentTime(), // Add the time here when user enters the name
+        },
+      ]);
+    } else {
+      setChat((prevChat) => [
+        ...prevChat,
+        {
+          text: `Please Provide name length greater than three characters ❌`,
+          time: getCurrentTime(), // Add time to the error message as well
         },
       ]);
     }
@@ -93,7 +96,11 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
         {chat.map((message, index) => (
           <li key={index}>
             <div>{message.name}</div>
-            <div className="chat-bubble">{message.text}</div>
+            <div className="chat-bubble">
+              {message.text}
+              <span className="chat-time"> {message.time}</span>{" "}
+              {/* Show time here */}
+            </div>
           </li>
         ))}
 
@@ -114,8 +121,6 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
             />
           </li>
         )}
-
-        {/* Render the ConditionalOptions component if options should be shown */}
       </ul>
       <div className="chatbox-footer">
         <input
