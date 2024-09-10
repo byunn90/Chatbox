@@ -1,0 +1,26 @@
+.image-preview {
+  max-width: 200px; /* Set a maximum width for the image */
+  max-height: 200px; /* Set a maximum height for the image */
+  width: auto; /* Maintain aspect ratio */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 5px; /* Optional: Add rounded corners */
+}
+
+.pdf-preview {
+  display: flex;
+  align-items: center;
+}
+
+.pdf-icon {
+  margin-right: 10px;
+  color: #e74c3c; /* Optional: Set the PDF icon color */
+}
+
+.file-name {
+  text-decoration: none;
+  color: #007bff; /* Optional: Set the link color */
+}
+
+.file-icon {
+  margin-right: 10px;
+}

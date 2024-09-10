@@ -67,16 +67,23 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
   };
 
   const handleNameSubmit = () => {
-    if (inputValue.trim()) {
+    if (inputValue.trim().length > 3) {
       setName(inputValue.trim());
       setIsNameEntered(true);
-      setShowOptions(true); // Show options after the name is entered
-      setInputValue(""); // Clear the input field
+      setShowOptions(true);
+      setInputValue("");
       setChat((prevChat) => [
         ...prevChat,
         {
           name: inputValue.trim(),
           text: `Hello, ${inputValue.trim()}! How can I assist you today?`,
+        },
+      ]);
+    } else {
+      setChat((prevChat) => [
+        ...prevChat,
+        {
+          text: `That is not a valid name!`,
         },
       ]);
     }
@@ -87,7 +94,6 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
       <div className="chatbox-header">
         <span>
           <img src={twoBytesLogo} alt="Chat Assistant" />
-          <img src={chatGirl} alt="Chat Assistant" />
         </span>
         <button onClick={handleChatToggle}>&times;</button>
       </div>
@@ -106,7 +112,7 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
             </div>
           </li>
         )}
-        {isNameEntered && (
+        {isNameEntered.length > 5 && (
           <li>
             <ConditionalOptions
               currentQuestion={currentQuestion}

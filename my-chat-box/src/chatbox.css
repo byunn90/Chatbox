@@ -50,6 +50,7 @@
   overflow: hidden;
 }
 
+/* Chatbox header with 2Bytes logo styling */
 .chatbox-header {
   background: linear-gradient(135deg, #4a90e2, #007bff);
   color: #fff;
@@ -62,8 +63,13 @@
 }
 
 .chatbox-header span {
-  font-weight: bold;
-  font-size: 20px; /* Slightly larger font for readability */
+  display: flex;
+  align-items: center;
+}
+
+.chatbox-header img {
+  height: 40px; /* Adjust the size of the logo */
+  margin-right: 15px; /* Spacing between the logo and the text */
 }
 
 .chatbox-header button {
@@ -79,13 +85,6 @@
   transform: rotate(
     90deg
   ); /* Rotate the close button on hover for a modern effect */
-}
-
-.chatbox-header img {
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  margin-left: 15px;
 }
 
 .chatbox-content {
@@ -223,6 +222,7 @@
   background-color: #357ab7;
   border-color: #0056b3;
 }
+
 /* Styling for the file upload display */
 .file-upload {
   display: flex;

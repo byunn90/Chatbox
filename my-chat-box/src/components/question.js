@@ -7,6 +7,7 @@ function ChatQuestions() {
           "Do you want to check the status of your order?",
           "Would you like to contact support?",
           "About us?",
+          "request a change?",
         ],
         followUp: "Can you please provide your order number?",
         contactSupport:
