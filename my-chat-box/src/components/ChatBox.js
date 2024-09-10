@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperclip } from "@fortawesome/free-solid-svg-icons";
 import "../chatbox.css";
-import twoBytesLogo from "./images/2BYTES_logo-LoRes (2).png";
 import chatGirl from "./images/chatgirl.webp";
 import HandleOptionSelect from "./HandleOptionSelect";
 import HandleKeyDown from "./HandleKeyDown";
+import twoBytes from "./images/2BYTES_logo-LoRes (2).png";
 import HandleSendMessage from "./HandleSendMessage";
 import ChatQuestions from "./question";
 import handleFileChange from "./handleFileChange";
@@ -14,7 +14,6 @@ import ConditionalOptions from "./ConditionalOption";
 // Need to work on more follow up questions`
 // Need more input values
 // Later need a admin pannel
-// Need to add question from the diagram
 // Need a function to close the chat
 // If they still need help they should be able to go back to start of the chat again
 function ChatBox({ handleChatToggle, setChat, chat }) {
@@ -67,23 +66,16 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
   };
 
   const handleNameSubmit = () => {
-    if (inputValue.trim().length > 3) {
+    if (inputValue.trim()) {
       setName(inputValue.trim());
       setIsNameEntered(true);
-      setShowOptions(true);
-      setInputValue("");
+      setShowOptions(true); // Show options after the name is entered
+      setInputValue(""); // Clear the input field
       setChat((prevChat) => [
         ...prevChat,
         {
           name: inputValue.trim(),
           text: `Hello, ${inputValue.trim()}! How can I assist you today?`,
-        },
-      ]);
-    } else {
-      setChat((prevChat) => [
-        ...prevChat,
-        {
-          text: `That is not a valid name!`,
         },
       ]);
     }
@@ -93,7 +85,7 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
     <div className="chatbox">
       <div className="chatbox-header">
         <span>
-          <img src={twoBytesLogo} alt="Chat Assistant" />
+          <img src={twoBytes} alt="Chat Assistant" />
         </span>
         <button onClick={handleChatToggle}>&times;</button>
       </div>
@@ -112,7 +104,7 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
             </div>
           </li>
         )}
-        {isNameEntered.length > 5 && (
+        {isNameEntered && (
           <li>
             <ConditionalOptions
               currentQuestion={currentQuestion}

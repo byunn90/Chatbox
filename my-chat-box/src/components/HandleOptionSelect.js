@@ -49,15 +49,7 @@ export default function HandleOptionSelect({
       ]);
       setCurrentQuestion("damageProduct"); // Move to damage product state
     }
-    // Working on
-    else if (option === "request a change?") {
-      setChat((prevChat) => [
-        ...prevChat,
-        {
-          text: "Can you please provide description or some files what you would like to change?",
-        },
-      ]);
-    }
+
     setShowOptions(false); // Hide options after selection
   };
 
