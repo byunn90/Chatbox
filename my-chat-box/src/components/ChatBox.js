@@ -98,8 +98,7 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
             <div>{message.name}</div>
             <div className="chat-bubble">
               {message.text}
-              <span className="chat-time"> {message.time}</span>{" "}
-              {/* Show time here */}
+              <span className="chat-time">{message.time}</span>
             </div>
           </li>
         ))}
