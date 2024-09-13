@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 export default function HandleOptionSelect({
   setChat,
   setShowOptions,
@@ -6,6 +8,11 @@ export default function HandleOptionSelect({
   name,
   setCurrentQuestion,
 }) {
+  // Need something to close chats.
+  const [closeChat, setCloseChat] = useState("true");
+
+  const closingChatBox = () => {};
+
   const handleOptionSelect = (option) => {
     setChat([...chat, { text: option, name }]);
 
