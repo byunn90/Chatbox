@@ -31,7 +31,7 @@ export default function HandleSendMessage({
       } else if (input.toLowerCase().includes("support")) {
         return {
           key: "contactSupport",
-          text: questions.options.orderStatus.contactSupport,
+          text: questions.options.contactSupport.question,
         };
       }
       return { key: "closing", text: questions.closing };
@@ -93,10 +93,6 @@ export default function HandleSendMessage({
 
       // Set the next question to infoIssue after the email is entered
       setCurrentQuestion("infoIssue");
-      setChat((prevChat) => [
-        ...prevChat,
-        // { text: questions.options.infoIssue.question.join(" "), name: "Bot" },
-      ]);
       return; // Exit the function after handling email input
     }
 
@@ -128,9 +124,7 @@ export default function HandleSendMessage({
         const lowerCaseInput = inputValue.toLowerCase().replace(/[?.,!]/g, ""); // Normalize input by converting to lowercase and removing punctuation
 
         if (lowerCaseInput.includes("refund")) {
-          // Set a state to expect a detailed description
-          // setCurrentQuestion("refundDescription");
-
+          setCurrentQuestion("refundDescription");
           setChat((prevChat) => [
             ...prevChat,
             {
@@ -174,7 +168,7 @@ export default function HandleSendMessage({
           ...prevChat,
           { text: `Refund description: ${refundDescription}`, name },
           {
-            text: "Thank you for the details! We'll process your refund request.",
+            text: "Thank you for the details! We'll process your refund request shortly.",
             name: "Bot",
           },
         ]);

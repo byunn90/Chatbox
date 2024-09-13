@@ -19,7 +19,10 @@ export default function HandleOptionSelect({
     } else if (option === "About us?") {
       setChat((prevChat) => [
         ...prevChat,
-        { text: "We are a company dedicated to...", name: "Bot" },
+        {
+          text: "At 2Bytes, we specialize in providing advanced IT solutions that simplify complex processes, saving our clients both time and money. Our services range from CAD software development and consulting to customized estimating services through our flagship product, Virtual Estimator. Whether you're looking to streamline your business systems or need tailored software solutions, we pride ourselves on delivering high-quality, cost-effective results.",
+          name: "Bot",
+        },
       ]);
     } else if (option === "Refund") {
       setChat((prevChat) => [
@@ -50,7 +53,8 @@ export default function HandleOptionSelect({
       setCurrentQuestion("damageProduct"); // Move to damage product state
     }
 
-    setShowOptions(false); // Hide options after selection
+    // Hide options after selection
+    setShowOptions(false);
   };
 
   return { handleOptionSelect };
