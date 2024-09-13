@@ -11,6 +11,8 @@ import ChatQuestions from "./question";
 import handleFileChange from "./handleFileChange";
 import ConditionalOptions from "./ConditionalOption";
 import getCurrentTime from "./timeUtils";
+// Notes
+// Need to fixing the chat option
 function ChatBox({ handleChatToggle, setChat, chat }) {
   const [inputValue, setInputValue] = useState("");
   const [name, setName] = useState("");
