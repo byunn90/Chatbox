@@ -11,7 +11,11 @@ export default function HandleOptionSelect({
   // Need something to close chats.
   const [closeChat, setCloseChat] = useState("true");
 
-  const closingChatBox = () => {};
+  const closingChatBox = (option) => {
+    if (option === "refund") {
+      setCloseChat("false");
+    }
+  };
 
   const handleOptionSelect = (option) => {
     setChat([...chat, { text: option, name }]);
