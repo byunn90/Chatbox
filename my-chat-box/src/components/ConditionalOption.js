@@ -7,11 +7,12 @@ function ConditionalOptions({
   showOptions,
 }) {
   if (!showOptions) {
+    console.log("Options are hidden."); // Debug log
     return null;
   }
 
   console.log("Current Question:", currentQuestion);
-  console.log("Available Options:", questions.options.infoIssue.question);
+  console.log("Rendering Options for:", questions.options.infoIssue.question);
 
   const renderOptions = (options) => {
     return options.map((option, index) => (
@@ -19,6 +20,7 @@ function ConditionalOptions({
         key={index}
         className="option-button"
         onClick={() => {
+          console.log("Option clicked:", option); // Debug log
           handleOptionSelect(option); // Pass the selected option back to the parent component
         }}
       >
@@ -29,14 +31,14 @@ function ConditionalOptions({
 
   return (
     <div className="options">
-      {currentQuestion === "greeting" &&
-        renderOptions(questions.options.orderStatus.question)}
       {currentQuestion === "infoIssue" &&
         renderOptions(questions.options.infoIssue.question)}
+      {currentQuestion === "greeting" &&
+        renderOptions(questions.options.orderStatus.question)}
       {currentQuestion === "productInfo" &&
-        renderOptions(questions.options.question)}
+        renderOptions(questions.options.productInfo.question)}
       {currentQuestion === "technicalSupport" &&
-        renderOptions(questions.options.question)}
+        renderOptions(questions.options.technicalSupport.question)}
     </div>
   );
 }

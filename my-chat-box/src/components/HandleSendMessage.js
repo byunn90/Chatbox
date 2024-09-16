@@ -17,6 +17,7 @@ export default function HandleSendMessage({
   setCurrentQuestion,
 }) {
   const determineNextQuestion = (input, current, questions) => {
+    // Logic to handle the next question
     if (current === "greeting") {
       if (input.toLowerCase().includes("order")) {
         return {
@@ -33,45 +34,44 @@ export default function HandleSendMessage({
           key: "contactSupport",
           text: questions.options.contactSupport.question,
         };
+      } else if (input.toLowerCase().includes("change")) {
+        return {
+          key: "requestChangeDescription",
+          text: "You selected 'Request a Change'. Can you describe the reason why you want a change?",
+        };
       }
-      return { key: "closing", text: questions.closing };
+      return {
+        key: "closing",
+        text: "Thank you for chatting with us. Have a great day!",
+      };
     } else if (current === "orderStatus") {
       return {
-        key: "orderStatus",
-        text: questions.options.orderStatus.followUp,
+        key: "closing",
+        text: "Your order status will be updated shortly.",
       };
     } else if (current === "productInfo") {
       return {
-        key: "productInfo",
-        text: questions.options.productInfo.followUp,
+        key: "closing",
+        text: "You can find more product info on our website.",
       };
     } else if (current === "contactSupport") {
       return {
-        key: "infoIssue",
-        text: questions.options.infoIssue.question.join(" "),
+        key: "closing",
+        text: "Our support team will reach out to you soon.",
       };
     }
-    return { key: "closing", text: questions.closing };
+    return {
+      key: "closing",
+      text: "Thank you for chatting with us. Have a great day!",
+    };
   };
 
+  // Ensure setShowOptions(true) is placed correctly to show options
   const handleSendMessage = async () => {
     if (!inputValue.trim()) return;
 
     if (!isNameEntered) {
-      const enteredName = inputValue.trim();
-      setName(enteredName);
-      setChat([
-        ...chat,
-        { text: `Name entered: ${enteredName}`, name: enteredName },
-      ]);
-      setIsNameEntered(true);
-      setInputValue(""); // Clear the input field
-      setChat((prevChat) => [
-        ...prevChat,
-        { text: questions.greeting, name: "Bot" },
-      ]);
-      setShowOptions(true); // Show options after greeting
-      return;
+      // Other logic...
     }
 
     if (
@@ -89,12 +89,13 @@ export default function HandleSendMessage({
       ]);
 
       setInputValue(""); // Clear the input field
+      setCurrentQuestion("infoIssue"); // Set the next question first
       setShowOptions(true); // Show options after email is entered
 
-      // Set the next question to infoIssue after the email is entered
-      setCurrentQuestion("infoIssue");
       return; // Exit the function after handling email input
     }
+
+    // Rest of the function...
 
     // Continue with other input handling...
     try {
@@ -118,6 +119,73 @@ export default function HandleSendMessage({
 
       setChat([...chat, { text: inputValue, name }]);
       setInputValue(""); // Clear the input field after sending
+
+      // Handle the "damageProductConfirm" state
+      if (currentQuestion === "damageProductConfirm") {
+        const lowerCaseInput = inputValue.toLowerCase();
+        if (lowerCaseInput.includes("yes")) {
+          setChat((prevChat) => [
+            ...prevChat,
+            {
+              text: "Please describe the issue with the product in detail and attach a photo if possible.",
+              name: "Bot",
+            },
+          ]);
+          setCurrentQuestion("damageProductDetails"); // Move to the next state
+        } else if (lowerCaseInput.includes("no")) {
+          setChat((prevChat) => [
+            ...prevChat,
+            {
+              text: "No problem. If you need further assistance, please let us know.",
+              name: "Bot",
+            },
+          ]);
+          setCurrentQuestion("closing"); // Move to closing state
+        } else {
+          setChat((prevChat) => [
+            ...prevChat,
+            {
+              text: "Please respond with 'Yes' if you'd like to provide more details, or 'No' if you'd like to proceed without more details.",
+              name: "Bot",
+            },
+          ]);
+        }
+        return;
+      }
+
+      // Handle detailed description for damage product
+      if (currentQuestion === "damageProductDetails") {
+        const productDescription = inputValue.trim();
+        setChat((prevChat) => [
+          ...prevChat,
+          { text: `Product damage description: ${productDescription}`, name },
+          {
+            text: "Thank you for providing the details. We'll review your issue and get back to you shortly.",
+            name: "Bot",
+          },
+        ]);
+
+        setCurrentQuestion("closing"); // Move to closing question or next step
+        setInputValue(""); // Clear input
+        return;
+      }
+
+      // Handle the "request a change" description
+      if (currentQuestion === "requestChangeDescription") {
+        const changeDescription = inputValue.trim();
+        setChat((prevChat) => [
+          ...prevChat,
+          { text: `Change request description: ${changeDescription}`, name },
+          {
+            text: "Thank you for providing the details. We'll review your change request and get back to you shortly.",
+            name: "Bot",
+          },
+        ]);
+
+        setCurrentQuestion("closing"); // Move to closing question or next step
+        setInputValue(""); // Clear input
+        return;
+      }
 
       // Determine the next question based on user input
       if (currentQuestion === "infoIssue") {
@@ -144,10 +212,11 @@ export default function HandleSendMessage({
           setChat((prevChat) => [
             ...prevChat,
             {
-              text: "You selected Damage Product. Can you please type your mobile number and also take a photo of the damaged area of the product and upload it in the chatbox?",
+              text: "You selected Damage Product. Would you like to provide more details or proceed without details? (Yes/No)",
               name: "Bot",
             },
           ]);
+          setCurrentQuestion("damageProductConfirm"); // Move to damage product confirmation state
         } else {
           // Default case if none of the options match
           setChat((prevChat) => [
@@ -168,7 +237,7 @@ export default function HandleSendMessage({
           ...prevChat,
           { text: `Refund description: ${refundDescription}`, name },
           {
-            text: "Thank you for the details! We'll process your refund request shortly.",
+            text: "Thank you for the details! We'll process your refund request shortly. Have a Great day.",
             name: "Bot",
           },
         ]);

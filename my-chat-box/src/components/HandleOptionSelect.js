@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 export default function HandleOptionSelect({
   setChat,
   setShowOptions,
@@ -8,17 +6,8 @@ export default function HandleOptionSelect({
   name,
   setCurrentQuestion,
 }) {
-  // Need something to close chats.
-  const [closeChat, setCloseChat] = useState("true");
-
-  const closingChatBox = (option) => {
-    if (option === "refund") {
-      setCloseChat("false");
-    }
-  };
-
   const handleOptionSelect = (option) => {
-    setChat([...chat, { text: option, name }]);
+    console.log("Option selected:", option); // Debug log
 
     // Handle specific options based on the user's choice
     if (option === "Would you like to contact support?") {
@@ -26,24 +15,26 @@ export default function HandleOptionSelect({
         ...prevChat,
         { text: "Please enter your email address:", name: "Bot" },
       ]);
-      setCurrentQuestion("contactSupport"); // Expect email next
-    } else if (option === "About us?") {
+      setCurrentQuestion("contactSupport");
+    } else if (option === "Damage Product") {
+      // Directly ask for confirmation without repeating "Damage Product?"
       setChat((prevChat) => [
         ...prevChat,
         {
-          text: "At 2Bytes, we specialize in providing advanced IT solutions that simplify complex processes, saving our clients both time and money. Our services range from CAD software development and consulting to customized estimating services through our flagship product, Virtual Estimator. Whether you're looking to streamline your business systems or need tailored software solutions, we pride ourselves on delivering high-quality, cost-effective results.",
+          text: "Would you like to provide more details or proceed without details? (Yes/No)",
           name: "Bot",
         },
       ]);
+      setCurrentQuestion("damageProductConfirm");
     } else if (option === "Refund") {
       setChat((prevChat) => [
         ...prevChat,
         {
-          text: "You selected Refund. Can you please give a detailed description on why you would like the refund?",
+          text: "You selected Refund. Can you please give a detailed description of why you would like the refund?",
           name: "Bot",
         },
       ]);
-      setCurrentQuestion("refundDescription"); // Move to refund description state
+      setCurrentQuestion("refundDescription");
     } else if (option === "Track Order") {
       setChat((prevChat) => [
         ...prevChat,
@@ -52,16 +43,16 @@ export default function HandleOptionSelect({
           name: "Bot",
         },
       ]);
-      setCurrentQuestion("trackOrder"); // Move to track order state
-    } else if (option === "Damage Product") {
+      setCurrentQuestion("trackOrder");
+    } else if (option.toLowerCase().includes("request a change")) {
       setChat((prevChat) => [
         ...prevChat,
         {
-          text: "You selected Damage Product. Can you describe the issue with the product?",
+          text: "You selected 'Request a Change'. Can you describe the reason why you want a change?",
           name: "Bot",
         },
       ]);
-      setCurrentQuestion("damageProduct"); // Move to damage product state
+      setCurrentQuestion("requestChangeDescription");
     }
 
     // Hide options after selection

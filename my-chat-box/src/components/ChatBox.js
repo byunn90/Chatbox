@@ -2,17 +2,13 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperclip } from "@fortawesome/free-solid-svg-icons";
 import "../chatbox.css";
-import chatGirl from "./images/chatgirl.webp";
 import HandleOptionSelect from "./HandleOptionSelect";
-import HandleKeyDown from "./HandleKeyDown";
-import twoBytes from "./images/2BYTES_logo-LoRes (2).png";
 import HandleSendMessage from "./HandleSendMessage";
 import ChatQuestions from "./question";
-import handleFileChange from "./handleFileChange";
 import ConditionalOptions from "./ConditionalOption";
 import getCurrentTime from "./timeUtils";
-// Notes
-// Need to fixing the chat option
+import handleFileChange from "./handleFileChange"; // Make sure this path is correct
+
 function ChatBox({ handleChatToggle, setChat, chat }) {
   const [inputValue, setInputValue] = useState("");
   const [name, setName] = useState("");
@@ -21,6 +17,7 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
   const [isEmailEntered, setIsEmailEntered] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState("greeting");
   const [showOptions, setShowOptions] = useState(false);
+  const [forceRender, setForceRender] = useState(0); // Force re-render state
 
   const questions = ChatQuestions();
 
@@ -66,6 +63,7 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
       setName(inputValue.trim());
       setIsNameEntered(true);
       setShowOptions(true); // Show options after the name is entered
+      setForceRender(forceRender + 1); // Force re-render
       setInputValue(""); // Clear the input field
       setChat((prevChat) => [
         ...prevChat,
@@ -89,9 +87,6 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
   return (
     <div className="chatbox">
       <div className="chatbox-header">
-        <span>
-          <img src={twoBytes} alt="Chat Assistant" />
-        </span>
         <button onClick={handleChatToggle}>&times;</button>
       </div>
       <ul className="chat-thread">
