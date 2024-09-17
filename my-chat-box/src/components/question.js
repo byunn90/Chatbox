@@ -18,7 +18,7 @@ function ChatQuestions() {
         followUp: "Which product are you interested in?",
       },
       infoIssue: {
-        question: ["Damage Product?", "Refund?", "Track Order?"],
+        question: ["Damage Product", "Refund", "Track Order"],
         followUp:
           "Can you please provide a description of the issue so we know exactly how to assist you?",
       },
