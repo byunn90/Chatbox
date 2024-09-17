@@ -6,9 +6,10 @@ const handleFileChange = async (e, name, chat, setChat) => {
   const file = e.target.files[0];
   if (file) {
     const fileURL = URL.createObjectURL(file);
-    const isImage = file.type.startsWith("image/jpg");
+    const isImage = file.type.startsWith("image");
     const isPDF = file.type === "application/pdf";
 
+    // Set the chat to include the file name or type for user feedback
     setChat([
       ...chat,
       {
@@ -44,7 +45,7 @@ const handleFileChange = async (e, name, chat, setChat) => {
     const formData = new FormData();
     formData.append("file", file);
     try {
-      const response = await fetch("http://localhost:5228/upload", {
+      const response = await fetch("http://localhost:5228/api/chatbox/upload", {
         method: "POST",
         body: formData,
       });

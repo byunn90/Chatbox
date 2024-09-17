@@ -70,10 +70,35 @@ export default function HandleSendMessage({
   const handleSendMessage = async () => {
     if (!inputValue.trim()) return;
 
-    if (!isNameEntered) {
-      // Other logic...
-    }
+    // Serialize chat messages including handling files correctly
+    const concatenatedMessages =
+      chat
+        .map((message) => {
+          if (typeof message.text === "string") {
+            return message.text;
+          } else if (message.text.props) {
+            // For file uploads, extracting the file name or representation
+            return (
+              "[File Uploaded: " +
+              (message.text.props.children[1]?.props.children || "File") +
+              "]"
+            );
+          } else {
+            return "[File Uploaded]";
+          }
+        })
+        .join(" ") +
+      " " +
+      inputValue.trim();
 
+    const postData = {
+      name: name,
+      email: email,
+      createdAt: new Date().toISOString().split("T")[0],
+      chatMessage: concatenatedMessages, // Concatenated messages with file details
+    };
+
+    // Handle entering the email case
     if (
       isNameEntered &&
       !isEmailEntered &&
@@ -89,26 +114,12 @@ export default function HandleSendMessage({
       ]);
 
       setInputValue(""); // Clear the input field
-      setCurrentQuestion("infoIssue"); // Set the next question first
+      setCurrentQuestion("infoIssue"); // Set the next question
       setShowOptions(true); // Show options after email is entered
-
       return; // Exit the function after handling email input
     }
 
-    // Rest of the function...
-
-    // Continue with other input handling...
     try {
-      const concatenatedMessages =
-        chat.map((message) => message.text).join(" ") + " " + inputValue.trim();
-
-      const postData = {
-        name: name,
-        email: email,
-        createdAt: new Date().toISOString().split("T")[0],
-        chatMessage: concatenatedMessages, // Concatenated messages
-      };
-
       await fetch("http://localhost:5228/chatbox", {
         method: "POST",
         headers: {
