@@ -2,12 +2,12 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperclip, faFilePdf } from "@fortawesome/free-solid-svg-icons";
 import "./imagePreview.css";
-const handleFileChange = (e, name, chat, setChat) => {
+const handleFileChange = async (e, name, chat, setChat) => {
   const file = e.target.files[0];
   if (file) {
-    const fileURL = URL.createObjectURL(file); // Create a URL for the file
-    const isImage = file.type.startsWith("image/jpg"); // Check if the file is an image
-    const isPDF = file.type === "application/pdf"; // Check if the file is a PDF
+    const fileURL = URL.createObjectURL(file);
+    const isImage = file.type.startsWith("image/jpg");
+    const isPDF = file.type === "application/pdf";
 
     setChat([
       ...chat,
@@ -17,10 +17,8 @@ const handleFileChange = (e, name, chat, setChat) => {
           <div className="file-upload">
             <FontAwesomeIcon icon={faPaperclip} className="file-icon" />
             {isImage ? (
-              // If the file is an image, show a preview with controlled size
               <img src={fileURL} alt={file.name} className="image-preview" />
             ) : isPDF ? (
-              // If the file is a PDF, show a PDF icon with a download option
               <div className="pdf-preview">
                 <FontAwesomeIcon icon={faFilePdf} className="pdf-icon" />
                 <a
@@ -33,7 +31,6 @@ const handleFileChange = (e, name, chat, setChat) => {
                 </a>
               </div>
             ) : (
-              // For other file types, just show the file name with download option
               <a href={fileURL} download={file.name} className="file-name">
                 {file.name}
               </a>
@@ -42,6 +39,25 @@ const handleFileChange = (e, name, chat, setChat) => {
         ),
       },
     ]);
+
+    // Send the file to the backend
+    const formData = new FormData();
+    formData.append("file", file);
+    try {
+      const response = await fetch("http://localhost:5228/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error("File upload failed");
+      }
+
+      const result = await response.json();
+      console.log("File uploaded successfully:", result);
+    } catch (error) {
+      console.error("Error uploading file:", error);
+    }
   }
 };
 
