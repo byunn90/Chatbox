@@ -16,6 +16,14 @@ export default function HandleOptionSelect({
         { text: "Please enter your email address:", name: "Bot" },
       ]);
       setCurrentQuestion("contactSupport");
+    } else if (option === "About us?") {
+      setChat((prevChat) => [
+        ...prevChat,
+        {
+          text: "Our company specializes in providing top-notch customer support solutions.",
+          name: "Bot",
+        },
+      ]);
     } else if (option === "Damage Product") {
       // Directly ask for confirmation without repeating "Damage Product?"
       setChat((prevChat) => [
