@@ -1,4 +1,4 @@
-<!-- # Chatbox
+# Chatbox
 
 A user-friendly chat interface designed to provide real-time assistance to clients, featuring modular code structure, file handling, and emoji selection capabilities.
 

@@ -224,6 +224,8 @@ export default function HandleSendMessage({
             ...prevChat,
             {
               text: "You selected Damage Product. Would you like to provide more details or proceed without details? (Yes/No)",
+              text: "Yes",
+              text: "No",
               name: "Bot",
             },
           ]);
