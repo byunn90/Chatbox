@@ -188,7 +188,7 @@ export default function HandleSendMessage({
           ...prevChat,
           { text: `Change request description: ${changeDescription}`, name },
           {
-            text: "Thank you for providing the details. We'll review your change request and get back to you shortly.",
+            text: "Thank you for providing the details. We'll review your change request and get back to you shortly have a great day!.",
             name: "Bot",
           },
         ]);
@@ -219,16 +219,7 @@ export default function HandleSendMessage({
               name: "Bot",
             },
           ]);
-        } else if (lowerCaseInput.includes("damage product")) {
-          setChat((prevChat) => [
-            ...prevChat,
-            {
-              text: "You selected Damage Product. Would you like to provide more details or proceed without details? (Yes/No)",
-              text: "Yes",
-              text: "No",
-              name: "Bot",
-            },
-          ]);
+
           setCurrentQuestion("damageProductConfirm"); // Move to damage product confirmation state
         } else {
           // Default case if none of the options match
