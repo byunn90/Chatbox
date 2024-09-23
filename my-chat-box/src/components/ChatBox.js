@@ -8,7 +8,8 @@ import ChatQuestions from "./question";
 import ConditionalOptions from "./ConditionalOption";
 import getCurrentTime from "./timeUtils";
 import handleFileChange from "./handleFileChange"; // Make sure this path is correct
-
+// Working on Closing ChatBox
+// Finish By Tommorrow
 function ChatBox({ handleChatToggle, setChat, chat }) {
   const [inputValue, setInputValue] = useState("");
   const [name, setName] = useState("");
