@@ -8,7 +8,7 @@ import ChatQuestions from "./question";
 import ConditionalOptions from "./ConditionalOption";
 import getCurrentTime from "./timeUtils";
 import handleFileChange from "./handleFileChange";
-import DelayChat from "../DelayChat.js"; // Import the corrected DelayChat component
+import useDelayChat from "./useDelayChat"; // Import the hook
 
 function ChatBox({ handleChatToggle, setChat, chat }) {
   const [inputValue, setInputValue] = useState("");
@@ -22,8 +22,8 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
 
   const questions = ChatQuestions();
 
-  // Use DelayChat as a component here
-  const DelayChat = DelayChat({
+  // Use the custom hook to add delay functionality
+  const timerDelay = useDelayChat({
     chat,
     setChat,
   });
