@@ -1,22 +1,17 @@
 import { useState, useEffect } from "react";
+// Need to fix it
+function useDelayChat({ setChat, chat, delay = 3000 }) {
+  const [isTyping, setIsTyping] = useState(false);
 
-// Rename the function to follow hook naming convention
-function useDelayChat({ setChat, chat }) {
-  const [timerDelay, setTimerDelay] = useState(false);
+  const addDelayedMessage = (message) => {
+    setIsTyping(true);
+    setTimeout(() => {
+      setIsTyping(false);
+      setChat((prevChat) => [...prevChat, message]);
+    }, delay);
+  };
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setTimerDelay(true);
-      setChat((prevChat) => [
-        ...prevChat,
-        // { text: "Delayed message added to chat", name: "Bot" },
-      ]);
-    }, 10000);
-
-    return () => clearTimeout(timer);
-  }, [setChat, chat]);
-
-  return timerDelay;
+  return { isTyping, addDelayedMessage };
 }
 
 export default useDelayChat;

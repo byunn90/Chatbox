@@ -8,7 +8,7 @@ import ChatQuestions from "./question";
 import ConditionalOptions from "./ConditionalOption";
 import getCurrentTime from "./timeUtils";
 import handleFileChange from "./handleFileChange";
-import useDelayChat from "./useDelayChat"; // Import the hook
+import useDelayChat from "./useDelayChat"; // Import the delay function as a hook
 
 function ChatBox({ handleChatToggle, setChat, chat }) {
   const [inputValue, setInputValue] = useState("");
@@ -19,13 +19,16 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
   const [currentQuestion, setCurrentQuestion] = useState("greeting");
   const [showOptions, setShowOptions] = useState(false);
   const [forceRender, setForceRender] = useState(0);
-
+  const [isTyping, setIsTyping] = useState(false); // State to show typing indicator
+  // Typing indicator not working propely need to be fixed
+  // Finish all the rest of the questions
   const questions = ChatQuestions();
 
   // Use the custom hook to add delay functionality
   const timerDelay = useDelayChat({
     chat,
     setChat,
+    setIsTyping, // Pass the typing state setter to the hook
   });
 
   const { handleSendMessage } = HandleSendMessage({
@@ -114,6 +117,16 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
             </div>
           </li>
         )}
+        {isNameEntered &&
+          isTyping && ( // Show typing indicator if typing is true
+            <li>
+              <div className="chat-bubble typing-indicator">
+                <span className="dot"></span>
+                <span className="dot"></span>
+                <span className="dot"></span>
+              </div>
+            </li>
+          )}
         {isNameEntered && (
           <li>
             <ConditionalOptions
