@@ -7,9 +7,9 @@ import HandleSendMessage from "./HandleSendMessage";
 import ChatQuestions from "./question";
 import ConditionalOptions from "./ConditionalOption";
 import getCurrentTime from "./timeUtils";
-import handleFileChange from "./handleFileChange"; // Make sure this path is correct
-// Working on Closing ChatBox
-// Finish By Tommorrow
+import handleFileChange from "./handleFileChange";
+import DelayChat from "../DelayChat.js"; // Import the corrected DelayChat component
+
 function ChatBox({ handleChatToggle, setChat, chat }) {
   const [inputValue, setInputValue] = useState("");
   const [name, setName] = useState("");
@@ -18,9 +18,15 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
   const [isEmailEntered, setIsEmailEntered] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState("greeting");
   const [showOptions, setShowOptions] = useState(false);
-  const [forceRender, setForceRender] = useState(0); // Force re-render state
+  const [forceRender, setForceRender] = useState(0);
 
   const questions = ChatQuestions();
+
+  // Use DelayChat as a component here
+  const DelayChat = DelayChat({
+    chat,
+    setChat,
+  });
 
   const { handleSendMessage } = HandleSendMessage({
     inputValue,
@@ -39,7 +45,7 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
     questions,
     currentQuestion,
     setCurrentQuestion,
-    getCurrentTime, // Pass the time function
+    getCurrentTime,
   });
 
   const { handleOptionSelect } = HandleOptionSelect({
@@ -63,15 +69,15 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
     if (inputValue.trim().length > 3) {
       setName(inputValue.trim());
       setIsNameEntered(true);
-      setShowOptions(true); // Show options after the name is entered
-      setForceRender(forceRender + 1); // Force re-render
-      setInputValue(""); // Clear the input field
+      setShowOptions(true);
+      setForceRender(forceRender + 1);
+      setInputValue("");
       setChat((prevChat) => [
         ...prevChat,
         {
           name: inputValue.trim(),
           text: `Hello, ${inputValue.trim()}! How can I assist you today?`,
-          time: getCurrentTime(), // Add the time here when user enters the name
+          time: getCurrentTime(),
         },
       ]);
     } else {
@@ -79,7 +85,7 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
         ...prevChat,
         {
           text: `Please Provide name length greater than three characters ❌`,
-          time: getCurrentTime(), // Add time to the error message as well
+          time: getCurrentTime(),
         },
       ]);
     }

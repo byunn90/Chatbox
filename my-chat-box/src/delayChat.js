@@ -1,13 +1,23 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
-function delayChat() {
-  const [timerDelay, setTimerDelay] = usestate("false");
+// Ensure the name starts with an uppercase letter
+function DelayChat({ setChat, chat }) {
+  const [timerDelay, setTimerDelay] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setTimerDelay(true);
-    });
-  });
+      setChat((prevChat) => [
+        ...prevChat,
+        { text: "Delayed message added to chat", name: "Bot" },
+      ]);
+    }, 3000);
+
+    // Cleanup function to clear timeout when component unmounts
+    return () => clearTimeout(timer);
+  }, [setChat, chat]);
+
+  return timerDelay;
 }
 
-export default delayChat;
+export default DelayChat;
