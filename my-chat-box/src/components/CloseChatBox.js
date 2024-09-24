@@ -1,3 +1,4 @@
+// in progress
 function closeChatBox({ currentQuestion }) {
   if (currentQuestion === "No") {
     setIsChatBoxVisible(false);
