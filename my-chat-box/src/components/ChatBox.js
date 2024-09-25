@@ -119,8 +119,8 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
         )}
 
         {isNameEntered &&
+          showOptions &&
           isTyping && ( // Show typing indicator if typing is true
-            // NEED TO FIX THIS NOT WORKING PROPLY
             <li>
               <div className="chat-bubble typing-indicator">
                 <span className="dot"></span>
