@@ -1,0 +1,16 @@
+###
+GET http://localhost:5228/chatbox
+
+### 
+GET http://localhost:5228/chatbox/2
+###
+###
+POST http://localhost:5228/chatbox
+Content-Type: application/json
+
+{
+    "name": "Rahim alwer",
+    "createdAt": "2024-08-19",
+    "email": "rahim@Hotmail.com",
+    "chatMessage": "need help lost my dog."
+}
