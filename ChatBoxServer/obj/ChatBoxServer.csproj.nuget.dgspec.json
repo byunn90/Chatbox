@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Kayha\\Desktop\\bootcamp\\projects\\chatbox\\ChatBoxServer\\ChatBoxServer.csproj": {}
+    "C:\\Users\\Kayha\\Desktop\\bootcamp\\projects\\chatbox\\Chatbox\\ChatBoxServer\\ChatBoxServer.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Kayha\\Desktop\\bootcamp\\projects\\chatbox\\ChatBoxServer\\ChatBoxServer.csproj": {
+    "C:\\Users\\Kayha\\Desktop\\bootcamp\\projects\\chatbox\\Chatbox\\ChatBoxServer\\ChatBoxServer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Kayha\\Desktop\\bootcamp\\projects\\chatbox\\ChatBoxServer\\ChatBoxServer.csproj",
+        "projectUniqueName": "C:\\Users\\Kayha\\Desktop\\bootcamp\\projects\\chatbox\\Chatbox\\ChatBoxServer\\ChatBoxServer.csproj",
         "projectName": "ChatBoxServer",
-        "projectPath": "C:\\Users\\Kayha\\Desktop\\bootcamp\\projects\\chatbox\\ChatBoxServer\\ChatBoxServer.csproj",
+        "projectPath": "C:\\Users\\Kayha\\Desktop\\bootcamp\\projects\\chatbox\\Chatbox\\ChatBoxServer\\ChatBoxServer.csproj",
         "packagesPath": "C:\\Users\\Kayha\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Kayha\\Desktop\\bootcamp\\projects\\chatbox\\ChatBoxServer\\obj\\",
+        "outputPath": "C:\\Users\\Kayha\\Desktop\\bootcamp\\projects\\chatbox\\Chatbox\\ChatBoxServer\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Kayha\\AppData\\Roaming\\NuGet\\NuGet.Config",
