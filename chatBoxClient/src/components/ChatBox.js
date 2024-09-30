@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperclip } from "@fortawesome/free-solid-svg-icons";
 import "../chatbox.css";
@@ -8,7 +8,7 @@ import ChatQuestions from "./question";
 import ConditionalOptions from "./ConditionalOption";
 import getCurrentTime from "./timeUtils";
 import handleFileChange from "./handleFileChange";
-import useDelayChat from "./useDelayChat"; // Import the delay function as a hook
+import useDelayChat from "./useDelayChat";
 
 function ChatBox({ handleChatToggle, setChat, chat }) {
   const [inputValue, setInputValue] = useState("");
@@ -18,17 +18,15 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
   const [isEmailEntered, setIsEmailEntered] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState("greeting");
   const [showOptions, setShowOptions] = useState(false);
-  const [forceRender, setForceRender] = useState(0);
-  const [isTyping, setIsTyping] = useState(false); // State to show typing indicator
-  // Typing indicator not working propely need to be fixed
-  // Finish all the rest of the questions
+  const [showTypingIndicator, setShowTypingIndicator] = useState(false); // Typing indicator state
+  const [showNamePrompt, setShowNamePrompt] = useState(false); // State to control when the name prompt is shown
+
   const questions = ChatQuestions();
 
-  // Use the custom hook to add delay functionality
-  const timerDelay = useDelayChat({
+  // Custom hook to add delay functionality
+  const { addDelayedMessage } = useDelayChat({
     chat,
     setChat,
-    setIsTyping, // Pass the typing state setter to the hook
   });
 
   const { handleSendMessage } = HandleSendMessage({
@@ -49,6 +47,7 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
     currentQuestion,
     setCurrentQuestion,
     getCurrentTime,
+    setShowTypingIndicator,
   });
 
   const { handleOptionSelect } = HandleOptionSelect({
@@ -58,6 +57,7 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
     questions,
     name,
     setCurrentQuestion,
+    setShowTypingIndicator,
   });
 
   const handleInputChange = (e) => {
@@ -73,7 +73,6 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
       setName(inputValue.trim());
       setIsNameEntered(true);
       setShowOptions(true);
-      setForceRender(forceRender + 1);
       setInputValue("");
       setChat((prevChat) => [
         ...prevChat,
@@ -87,12 +86,26 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
       setChat((prevChat) => [
         ...prevChat,
         {
-          text: `Please Provide name length greater than three characters ❌`,
+          text: `Please provide a name longer than three characters ❌`,
           time: getCurrentTime(),
         },
       ]);
     }
   };
+
+  // This effect runs only once when the component is mounted and when isNameEntered changes
+  useEffect(() => {
+    if (!isNameEntered && !showNamePrompt) {
+      // Show typing indicator first
+      setShowTypingIndicator(true);
+
+      // Delay to hide typing indicator and show name prompt
+      setTimeout(() => {
+        setShowTypingIndicator(false); // Hide typing indicator after 2 seconds
+        setShowNamePrompt(true); // Show name prompt after typing indicator
+      }, 2000);
+    }
+  }, [isNameEntered, showNamePrompt]); // Controlled by `isNameEntered` and `showNamePrompt`
 
   return (
     <div className="chatbox">
@@ -110,7 +123,19 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
           </li>
         ))}
 
-        {!isNameEntered && (
+        {/* Show typing indicator before name prompt */}
+        {!isNameEntered && showTypingIndicator && (
+          <li>
+            <div className="chat-bubble typing-indicator">
+              <span className="dot"></span>
+              <span className="dot"></span>
+              <span className="dot"></span>
+            </div>
+          </li>
+        )}
+
+        {/* Show name prompt after typing indicator */}
+        {!isNameEntered && showNamePrompt && (
           <li>
             <div className="chat-bubble">
               Please enter your first and last name to start chatting.
@@ -118,17 +143,6 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
           </li>
         )}
 
-        {isNameEntered &&
-          showOptions &&
-          isTyping && ( // Show typing indicator if typing is true
-            <li>
-              <div className="chat-bubble typing-indicator">
-                <span className="dot"></span>
-                <span className="dot"></span>
-                <span className="dot"></span>
-              </div>
-            </li>
-          )}
         {isNameEntered && (
           <li>
             <ConditionalOptions
