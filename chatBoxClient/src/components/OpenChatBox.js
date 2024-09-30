@@ -1,11 +1,12 @@
 import React from "react";
 import "./OpenChatBox.css";
-import twoBytesLogo from "./images/2BYTES_logo-LoRes (2).png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faComment } from "@fortawesome/free-solid-svg-icons";
 
 function OpenChatBox() {
   return (
     <div className="OpenChatBox">
-      <span>Open</span>
+      <FontAwesomeIcon icon={faComment} />
     </div>
   );
 }

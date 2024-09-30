@@ -3,9 +3,22 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: "Arial", sans-serif; /* Use a clean, modern font */
 }
 
+body {
+  font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.chat-content {
+  display: flex;
+  align-items: center; /* Align items vertically in the center */
+  gap: 5px; /* Reduce the gap to minimize space between name and bubble */
+}
+.message-name {
+  font-size: 15px;
+  margin-left: 10px;
+}
 /* OpenChatBox styles */
 .OpenChatBox {
   position: fixed;
@@ -13,7 +26,7 @@
   right: 20px;
   width: 60px;
   height: 60px;
-  background-color: #007bff;
+  background-color: #1c2f41;
   color: white;
   display: flex;
   justify-content: center;
@@ -21,7 +34,7 @@
   border-radius: 50%;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   cursor: pointer;
-  font-size: 24px; /* Slightly larger for better visibility */
+  font-size: 15px; /* Slightly larger for better visibility */
   text-decoration: none;
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
@@ -50,7 +63,7 @@
   overflow: hidden;
 }
 
-/* Chatbox header with 2Bytes logo styling */
+/* Chatbox header */
 .chatbox-header {
   background: linear-gradient(135deg, #4a90e2, #007bff);
   color: #fff;
@@ -60,16 +73,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.chatbox-header span {
-  display: flex;
-  align-items: center;
-}
-
-.chatbox-header img {
-  height: 40px; /* Adjust the size of the logo */
-  margin-right: 15px; /* Spacing between the logo and the text */
 }
 
 .chatbox-header button {
@@ -87,13 +90,7 @@
   ); /* Rotate the close button on hover for a modern effect */
 }
 
-.chatbox-content {
-  flex: 1;
-  overflow-y: auto;
-  padding: 20px;
-  background-color: #f1f1f1; /* Softer background color for contrast */
-}
-
+/* Chat thread */
 .chat-thread {
   list-style-type: none;
   padding: 0;
@@ -106,8 +103,8 @@
   margin-bottom: 15px;
 }
 
+/* Chat bubble styles */
 .chat-bubble {
-  background-color: #ffffff;
   padding: 15px 20px;
   border-radius: 25px;
   max-width: 80%;
@@ -121,9 +118,16 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Added shadow for depth */
 }
 
-.chat-bubble.bot {
-  background-color: #e2f1ff;
-  border: 1px solid #b3daff; /* Light border for better distinction */
+/* User and bot message styles */
+.user-message .chat-bubble {
+  background-color: #e0f7fa; /* Soft cyan for user's messages */
+  color: #00796b; /* Dark teal for text to ensure readability */
+}
+
+.bot-message .chat-bubble {
+  background-color: #f3f4f6; /* Light grey for bot messages */
+  color: #333; /* Dark grey for text */
+  border: 1px solid #d1d5db; /* Light border for better distinction */
 }
 
 .chatbox-footer {
@@ -164,34 +168,31 @@
     transform 0.3s ease;
 }
 
-/* Styling the paperclip icon */
 .fontAwesome-Icons .icon {
   color: #007bff;
   font-size: 20px;
   transition: color 0.3s ease;
 }
 
-/* Hover effect for the container */
 .fontAwesome-Icons:hover {
   background-color: #d0d4da;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   transform: scale(1.1);
 }
 
-/* Hover effect for the icon */
 .fontAwesome-Icons:hover .icon {
   color: #0056b3;
 }
 
-/* Styling for the options (multiple-choice buttons) */
+/* Options styling */
 .options {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  width: 100%; /* Ensure .options container takes full width of its parent */
-  max-width: 300px; /* Optional: set a max-width if you want to limit the size */
+  width: 100%;
+  max-width: 300px;
   margin: 0 auto;
 }
 
@@ -206,9 +207,9 @@
   font-size: 13px;
   font-weight: bold;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  width: 100%; /* Make all buttons take up the full width of the .options container */
-  box-sizing: border-box; /* Ensures padding is included in the width calculation */
-  text-align: center; /* Center the text within the button */
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
 }
 
 .option-button:hover {
@@ -223,7 +224,7 @@
   border-color: #0056b3;
 }
 
-/* Styling for the file upload display */
+/* File upload display */
 .file-upload {
   display: flex;
   align-items: center;
@@ -252,14 +253,16 @@
   text-decoration: none;
 }
 
+/* Chat time styles */
 .chat-time {
   font-size: 11px;
   color: #888; /* Light grey for subtlety */
-  margin-top: 5px; /* Space between the message and the time */
-  display: block; /* Ensure it appears below the message */
-  text-align: right; /* Align the time to the right */
+  margin-top: 5px;
+  display: block;
+  text-align: right;
 }
 
+/* Typing indicator styles */
 .typing-indicator {
   display: flex;
   justify-content: center;

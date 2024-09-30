@@ -114,11 +114,18 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
       </div>
       <ul className="chat-thread">
         {chat.map((message, index) => (
-          <li key={index}>
-            <div>{message.name}</div>
-            <div className="chat-bubble">
-              {message.text}
-              <span className="chat-time">{message.time}</span>
+          <li
+            key={index}
+            className={`chat-message ${
+              message.name === "Bot" ? "bot-message" : "user-message"
+            }`}
+          >
+            <div className="chat-content">
+              <div className="message-name">{message.name}</div>
+              <div className="chat-bubble">
+                {message.text}
+                <span className="chat-time">{message.time}</span>
+              </div>
             </div>
           </li>
         ))}
