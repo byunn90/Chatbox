@@ -26,7 +26,7 @@ body {
   right: 20px;
   width: 60px;
   height: 60px;
-  background-color: #1c2f41;
+  background-color: #7a3496;
   color: white;
   display: flex;
   justify-content: center;
@@ -40,7 +40,7 @@ body {
 }
 
 .OpenChatBox:hover {
-  background-color: #0056b3;
+  background-color: #7a3496;
   transform: scale(
     1.1
   ); /* Slightly larger scale for better interaction feedback */
@@ -65,7 +65,7 @@ body {
 
 /* Chatbox header */
 .chatbox-header {
-  background: linear-gradient(135deg, #4a90e2, #007bff);
+  background: linear-gradient(135deg, #7a3496, #7a3496);
   color: #fff;
   padding: 20px; /* More padding for better spacing */
   border-top-left-radius: 15px;
@@ -118,16 +118,19 @@ body {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Added shadow for depth */
 }
 
-/* User and bot message styles */
+/* User message styles */
+/* User message styles */
 .user-message .chat-bubble {
-  background-color: #e0f7fa; /* Soft cyan for user's messages */
-  color: #00796b; /* Dark teal for text to ensure readability */
+  background-color: #9b59b6; /* Light purple for user's messages */
+  color: #ffffff; /* White text for readability against purple background */
 }
 
+/* Bot message styles */
 .bot-message .chat-bubble {
-  background-color: #f3f4f6; /* Light grey for bot messages */
-  color: #333; /* Dark grey for text */
-  border: 1px solid #d1d5db; /* Light border for better distinction */
+  background-color: #e6e6e6; /* Light grey for bot messages */
+  color: #000000; /* Black text for contrast and readability */
+  border: 1px solid #b3b3b3; /* Subtle border for better distinction */
+  margin-left: 10px;
 }
 
 .chatbox-footer {
