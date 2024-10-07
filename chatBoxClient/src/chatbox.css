@@ -10,42 +10,6 @@ body {
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
-.chat-content {
-  display: flex;
-  align-items: center; /* Align items vertically in the center */
-  gap: 5px; /* Reduce the gap to minimize space between name and bubble */
-}
-.message-name {
-  font-size: 15px;
-  margin-left: 10px;
-}
-/* OpenChatBox styles */
-.OpenChatBox {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 60px;
-  height: 60px;
-  background-color: #7a3496;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
-  font-size: 15px; /* Slightly larger for better visibility */
-  text-decoration: none;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.OpenChatBox:hover {
-  background-color: #7a3496;
-  transform: scale(
-    1.1
-  ); /* Slightly larger scale for better interaction feedback */
-}
-
 /* Chatbox styles */
 .chatbox {
   position: fixed;
@@ -54,20 +18,20 @@ body {
   width: 400px;
   height: 500px;
   background-color: white;
-  border: 1px solid #ccc; /* Softer border color */
+  border: 1px solid #ddd; /* Softer border color for a professional look */
   border-radius: 15px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Slightly stronger shadow for more depth */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Reduced shadow for subtle depth */
   overflow: hidden;
 }
 
 /* Chatbox header */
 .chatbox-header {
-  background: linear-gradient(135deg, #7a3496, #7a3496);
-  color: #fff;
-  padding: 20px; /* More padding for better spacing */
+  background: #e5e2e2; /* Light grey for contrast with the dark logo */
+  color: #333; /* Darker color for text to stand out */
+  padding: 10px 20px;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   display: flex;
@@ -75,19 +39,50 @@ body {
   align-items: center;
 }
 
-.chatbox-header button {
+/* Logo */
+.chatbox-logo {
+  width: 100px; /* Adjust width as needed */
+  height: auto; /* Maintain aspect ratio */
+  max-height: 40px; /* Ensure it fits within the header */
+}
+
+/* Close button */
+.close-button {
   background: none;
   border: none;
-  color: #fff;
+  color: #333; /* Darker color for better visibility */
   font-size: 24px; /* Larger font for better visibility */
   cursor: pointer;
   transition: transform 0.2s ease;
 }
 
-.chatbox-header button:hover {
-  transform: rotate(
-    90deg
-  ); /* Rotate the close button on hover for a modern effect */
+.close-button:hover {
+  transform: rotate(90deg); /* Rotate the close button on hover */
+}
+
+/* OpenChatBox styles */
+.OpenChatBox {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background-color: #007acc; /* A more neutral blue color */
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  font-size: 15px;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.OpenChatBox:hover {
+  background-color: #005ea6;
+  transform: scale(1.1);
 }
 
 /* Chat thread */
@@ -119,29 +114,30 @@ body {
 }
 
 /* User message styles */
-/* User message styles */
 .user-message .chat-bubble {
-  background-color: #9b59b6; /* Light purple for user's messages */
-  color: #ffffff; /* White text for readability against purple background */
+  background-color: #4d5f6a; /* Professional blue for user's messages */
+  color: #ffffff; /* White text for readability */
 }
 
 /* Bot message styles */
 .bot-message .chat-bubble {
-  background-color: #e6e6e6; /* Light grey for bot messages */
-  color: #000000; /* Black text for contrast and readability */
-  border: 1px solid #b3b3b3; /* Subtle border for better distinction */
+  background-color: #eaeaea; /* Soft light grey for bot messages */
+  color: #333; /* Dark text for contrast and readability */
+  border: 1px solid #d0d0d0; /* Subtle border for better distinction */
   margin-left: 10px;
 }
 
+/* Chatbox footer */
 .chatbox-footer {
   padding: 15px;
   border-top: 1px solid #ddd;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #fafafa; /* Lighter background for the footer */
+  background-color: #f9f9f9; /* Light background for the footer */
 }
 
+/* Input field styles */
 .chat-window-message {
   flex-grow: 1;
   padding: 12px 20px;
@@ -153,7 +149,7 @@ body {
 }
 
 .chat-window-message:focus {
-  border-color: #4a90e2;
+  border-color: #007acc; /* Matches main color */
   outline: none;
 }
 
@@ -172,7 +168,7 @@ body {
 }
 
 .fontAwesome-Icons .icon {
-  color: #007bff;
+  color: #007acc; /* Matches main color */
   font-size: 20px;
   transition: color 0.3s ease;
 }
@@ -184,49 +180,51 @@ body {
 }
 
 .fontAwesome-Icons:hover .icon {
-  color: #0056b3;
+  color: #005ea6; /* Darker shade on hover */
 }
 
 /* Options styling */
-.options {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  width: 100%;
-  max-width: 300px;
-  margin: 0 auto;
-}
-
 .option-button {
-  padding: 8px 12px;
-  background-color: #4a90e2;
-  color: white;
-  border: 1px solid #007bff;
-  border-radius: 20px;
+  padding: 8px 12px; /* Reduced padding to make buttons smaller */
+  background: linear-gradient(
+    135deg,
+    #61a5d8,
+    #3e84b6
+  ); /* Softer gradient blue for a polished look */
+  color: #fff; /* White text for readability */
+  border: 1px solid #3e84b6;
+  border-radius: 20px; /* Softer, rounder corners */
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-  font-size: 13px;
-  font-weight: bold;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  box-sizing: border-box;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  font-size: 13px; /* Slightly reduced font size for balance */
+  font-weight: 500; /* Medium weight for emphasis */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Softer shadow for depth */
+  width: 90%; /* Reduced width to avoid touching the edges */
+  margin: 8px auto; /* Added margin for space around buttons */
   text-align: center;
+  display: block; /* Ensures proper alignment */
 }
 
 .option-button:hover {
-  background-color: #357ab7;
-  transform: translateY(-2px);
-  border-color: #0056b3;
+  background: linear-gradient(
+    135deg,
+    #539ac7,
+    #33729d
+  ); /* Darker gradient blue on hover */
+  transform: translateY(-2px); /* Slightly smaller lift effect on hover */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Increase shadow on hover */
+  border-color: #33729d;
 }
 
 .option-button:focus {
   outline: none;
-  background-color: #357ab7;
-  border-color: #0056b3;
+  background: linear-gradient(
+    135deg,
+    #a1c4f0,
+    #7da4d6
+  ); /* Softened blue for focus state */
+  border-color: #3e84b6;
 }
-
 /* File upload display */
 .file-upload {
   display: flex;
@@ -235,18 +233,18 @@ body {
   padding: 12px 20px;
   border-radius: 8px;
   margin-top: 10px;
-  border: 1px solid #007bff;
+  border: 1px solid #007acc;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .file-icon {
-  color: #007bff;
+  color: #007acc;
   margin-right: 10px;
 }
 
 .file-name {
   font-weight: bold;
-  color: #0056b3;
+  color: #005ea6;
   text-decoration: underline;
   cursor: pointer;
 }
@@ -301,4 +299,17 @@ body {
   40% {
     transform: scale(1);
   }
+}
+
+.close-button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.close-button:hover {
+  transform: rotate(90deg); /* Rotate the close button on hover */
 }

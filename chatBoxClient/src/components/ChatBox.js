@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperclip } from "@fortawesome/free-solid-svg-icons";
 import "../chatbox.css";
+import logo from "./images/2BYTES_logo-LoRes (2).png";
 import HandleOptionSelect from "./HandleOptionSelect";
 import HandleSendMessage from "./HandleSendMessage";
 import ChatQuestions from "./question";
@@ -110,7 +111,10 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
   return (
     <div className="chatbox">
       <div className="chatbox-header">
-        <button onClick={handleChatToggle}>&times;</button>
+        <button onClick={handleChatToggle} className="close-button">
+          &times;
+        </button>
+        <img src={logo} alt="Company Logo" className="chatbox-logo" />
       </div>
       <ul className="chat-thread">
         {chat.map((message, index) => (
