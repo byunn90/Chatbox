@@ -20,6 +20,7 @@ export default function HandleSendMessage({
 }) {
   const { addDelayedMessage } = useDelayChat({ setChat, chat });
 
+  // Function to determine the next question or state based on user input
   const determineNextQuestion = (input, current, questions) => {
     if (current === "greeting") {
       if (input.toLowerCase().includes("order")) {
@@ -62,13 +63,20 @@ export default function HandleSendMessage({
         key: "closing",
         text: "Our support team will reach out to you soon.",
       };
+    } else if (current === "About us?") {
+      return {
+        key: "closing",
+        text: "Have a nice day! ☀",
+      };
     }
+
     return {
       key: "closing",
       text: "Thank you for chatting with us. Have a great day!",
     };
   };
 
+  // Function to handle sending a message
   const handleSendMessage = async () => {
     if (!inputValue.trim()) return;
 
@@ -98,6 +106,7 @@ export default function HandleSendMessage({
       chatMessage: concatenatedMessages,
     };
 
+    // Handling the email prompt specifically when contacting support
     if (
       isNameEntered &&
       !isEmailEntered &&

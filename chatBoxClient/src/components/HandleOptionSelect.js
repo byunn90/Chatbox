@@ -20,10 +20,18 @@ export default function HandleOptionSelect({
       });
       setCurrentQuestion("contactSupport");
     } else if (option === "About us?") {
+      // Send the initial response
       addDelayedMessage({
         text: "Our company specializes in providing top-notch customer support solutions.",
         name: "Bot",
       });
+      setCurrentQuestion("closing");
+      setTimeout(() => {
+        addDelayedMessage({
+          text: "Thanks for visiting our website and getting to know us! Have a great day! 🌞",
+          name: "Bot",
+        });
+      }, 5000);
     } else if (option === "Damage Product") {
       addDelayedMessage({
         text: "Would you like to provide more details or proceed without details? (Yes/No)",
