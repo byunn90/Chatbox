@@ -63,11 +63,6 @@ export default function HandleSendMessage({
         key: "closing",
         text: "Our support team will reach out to you soon.",
       };
-    } else if (current === "About us?") {
-      return {
-        key: "closing",
-        text: "Have a nice day! ☀",
-      };
     }
 
     return {
@@ -115,9 +110,11 @@ export default function HandleSendMessage({
       const enteredEmail = inputValue.trim();
       setEmail(enteredEmail);
       setIsEmailEntered(true);
+
+      // Delayed messages
       addDelayedMessage({ text: `Email entered: ${enteredEmail}`, name });
-      addDelayedMessage({
-        text: "Please Select from the options below",
+      await addDelayedMessage({
+        text: "Please select from the options below",
         name: "Bot",
       });
       setInputValue("");
@@ -137,23 +134,23 @@ export default function HandleSendMessage({
 
       setChat([...chat, { text: inputValue, name }]);
       setInputValue("");
-
+      // Work on tommorrow
       if (currentQuestion === "damageProductConfirm") {
         const lowerCaseInput = inputValue.toLowerCase();
         if (lowerCaseInput.includes("yes")) {
-          addDelayedMessage({
+          await addDelayedMessage({
             text: "Please describe the issue with the product in detail and attach a photo if possible.",
             name: "Bot",
           });
           setCurrentQuestion("damageProductDetails");
         } else if (lowerCaseInput.includes("no")) {
-          addDelayedMessage({
+          await addDelayedMessage({
             text: "No problem. If you need further assistance, please let us know.",
             name: "Bot",
           });
           setCurrentQuestion("closing");
         } else {
-          addDelayedMessage({
+          await addDelayedMessage({
             text: "Please respond with 'Yes' if you'd like to provide more details, or 'No' if you'd like to proceed without more details.",
             name: "Bot",
           });
@@ -161,33 +158,62 @@ export default function HandleSendMessage({
         return;
       }
 
-      if (currentQuestion === "damageProductDetails") {
-        const productDescription = inputValue.trim();
-        addDelayedMessage({
-          text: `Product damage description: ${productDescription}`,
-          name,
-        });
-        addDelayedMessage({
-          text: "Thank you for providing the details. We'll review your issue and get back to you shortly.",
-          name: "Bot",
-        });
-        setCurrentQuestion("closing");
-        setInputValue("");
-        return;
-      }
-
       if (currentQuestion === "requestChangeDescription") {
         const changeDescription = inputValue.trim();
-        addDelayedMessage({
-          text: `Change request description: ${changeDescription}`,
-          name,
-        });
-        addDelayedMessage({
-          text: "Thank you for providing the details. We'll review your change request and get back to you shortly. Have a great day!",
-          name: "Bot",
-        });
-        setCurrentQuestion("closing");
-        setInputValue("");
+        if (
+          isNameEntered &&
+          !isEmailEntered &&
+          currentQuestion === "request change?"
+        )
+          // Send a POST request to save the change request in the database
+          try {
+            const changeRequestData = {
+              name,
+              email: email,
+              changeDescription,
+              createdAt: new Date().toISOString(),
+            };
+            const enteredEmail = inputValue.trim();
+            setEmail(enteredEmail);
+            setIsEmailEntered(true);
+
+            await fetch("http://localhost:5228/api/request-change", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(changeRequestData),
+            });
+
+            // Show success messages after saving the data
+
+            // Delayed messages
+            addDelayedMessage({ text: `Email entered: ${enteredEmail}`, name });
+            await addDelayedMessage({
+              text: `Change request description: ${changeDescription}`,
+              name,
+            });
+            await addDelayedMessage({
+              text: "Thank you for providing the details. We'll review your change request and get back to you shortly. Have a great day!",
+              name: "Bot",
+            });
+
+            // Delay before sending closing message
+            await addDelayedMessage({
+              text: "Thank you for chatting with us. Have a great day!",
+              name: "Bot",
+            });
+
+            setCurrentQuestion("closing");
+            setInputValue("");
+          } catch (error) {
+            await addDelayedMessage({
+              text: "Oops! Something went wrong while submitting your change request. Please try again.",
+              name: "Bot",
+            });
+            console.error("Error submitting change request:", error);
+          }
+
         return;
       }
 
@@ -197,9 +223,11 @@ export default function HandleSendMessage({
         questions
       );
       setCurrentQuestion(nextQuestion.key);
-      addDelayedMessage({ text: nextQuestion.text, name: "Bot" });
+
+      // Delay for the next question
+      await addDelayedMessage({ text: nextQuestion.text, name: "Bot" });
     } catch (error) {
-      addDelayedMessage({
+      await addDelayedMessage({
         text: "Oops! Something went wrong. Please try again.",
         name: "Bot",
       });

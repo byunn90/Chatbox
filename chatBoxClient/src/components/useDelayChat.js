@@ -8,7 +8,7 @@ function useDelayChat({ setChat, chat, delay = 3000 }) {
     setTimeout(() => {
       setChat((prevChat) => [...prevChat, message]);
       setIsTyping(true);
-    }, 1500);
+    }, 2500);
   };
 
   return { isTyping, addDelayedMessage };
