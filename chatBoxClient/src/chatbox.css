@@ -18,19 +18,19 @@ body {
   width: 400px;
   height: 500px;
   background-color: white;
-  border: 1px solid #ddd; /* Softer border color for a professional look */
+  border: 1px solid #ddd;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Reduced shadow for subtle depth */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   overflow: hidden;
 }
 
 /* Chatbox header */
 .chatbox-header {
-  background: #e5e2e2; /* Light grey for contrast with the dark logo */
-  color: #333; /* Darker color for text to stand out */
+  background: #e5e2e2;
+  color: #333;
   padding: 10px 20px;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
@@ -186,23 +186,19 @@ body {
 /* Options styling */
 .option-button {
   padding: 8px 12px; /* Reduced padding to make buttons smaller */
-  background: linear-gradient(
-    135deg,
-    #61a5d8,
-    #3e84b6
-  ); /* Softer gradient blue for a polished look */
-  color: #fff; /* White text for readability */
+  background: linear-gradient(135deg, #61a5d8, #3e84b6);
+  color: #fff;
   border: 1px solid #3e84b6;
-  border-radius: 20px; /* Softer, rounder corners */
+  border-radius: 20px;
   cursor: pointer;
   transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-  font-size: 13px; /* Slightly reduced font size for balance */
-  font-weight: 500; /* Medium weight for emphasis */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Softer shadow for depth */
-  width: 90%; /* Reduced width to avoid touching the edges */
-  margin: 8px auto; /* Added margin for space around buttons */
+  font-size: 13px;
+  font-weight: 500;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  margin: 8px auto;
   text-align: center;
-  display: block; /* Ensures proper alignment */
+  display: block;
 }
 
 .option-button:hover {

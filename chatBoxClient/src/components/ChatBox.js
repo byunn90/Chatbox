@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperclip } from "@fortawesome/free-solid-svg-icons";
 import "../chatbox.css";
+import "./CloseChatBox";
 import logo from "./images/2BYTES_logo-LoRes (2).png";
 import HandleOptionSelect from "./HandleOptionSelect";
 import HandleSendMessage from "./HandleSendMessage";
@@ -9,7 +10,8 @@ import ChatQuestions from "./question";
 import ConditionalOptions from "./ConditionalOption";
 import getCurrentTime from "./timeUtils";
 import handleFileChange from "./handleFileChange";
-import useDelayChat from "./useDelayChat";
+// import useDelayChat from "./useDelayChat";
+import CloseChatBox from "./CloseChatBox";
 
 function ChatBox({ handleChatToggle, setChat, chat }) {
   const [inputValue, setInputValue] = useState("");
@@ -21,14 +23,20 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
   const [showOptions, setShowOptions] = useState(false);
   const [showTypingIndicator, setShowTypingIndicator] = useState(false); // Typing indicator state
   const [showNamePrompt, setShowNamePrompt] = useState(false); // State to control when the name prompt is shown
+  const [isChatBoxVisable, setIsChatBoxVisible] = useState(true);
 
   const questions = ChatQuestions();
 
-  // Custom hook to add delay functionality
-  const { addDelayedMessage } = useDelayChat({
-    chat,
-    setChat,
+  CloseChatBox({
+    currentQuestion,
+    setIsChatBoxVisible,
   });
+
+  // Custom hook to add delay functionality
+  // const { addDelayedMessage } = useDelayChat({
+  //   chat,
+  //   setChat,
+  // });
 
   const { handleSendMessage } = HandleSendMessage({
     inputValue,
@@ -109,7 +117,7 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
   }, [isNameEntered, showNamePrompt]); // Controlled by `isNameEntered` and `showNamePrompt`
 
   return (
-    <div className="chatbox">
+    <div className={isChatBoxVisable ? "chatbox" : "chatbox chatbox-hidden"}>
       <div className="chatbox-header">
         <button onClick={handleChatToggle} className="close-button">
           &times;
