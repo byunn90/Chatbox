@@ -30,6 +30,8 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
   CloseChatBox({
     currentQuestion,
     setIsChatBoxVisible,
+    questions, // Pass the questions object correctly
+    setCurrentQuestion,
   });
 
   // Custom hook to add delay functionality
@@ -111,12 +113,13 @@ function ChatBox({ handleChatToggle, setChat, chat }) {
       // Delay to hide typing indicator and show name prompt
       setTimeout(() => {
         setShowTypingIndicator(false); // Hide typing indicator after 2 seconds
-        setShowNamePrompt(true); // Show name prompt after typing indicator
+        setShowNamePrompt(true);
       }, 2000);
     }
-  }, [isNameEntered, showNamePrompt]); // Controlled by `isNameEntered` and `showNamePrompt`
+  }, [isNameEntered, showNamePrompt]);
 
   return (
+    // Currently Not working
     <div className={isChatBoxVisable ? "chatbox" : "chatbox chatbox-hidden"}>
       <div className="chatbox-header">
         <button onClick={handleChatToggle} className="close-button">

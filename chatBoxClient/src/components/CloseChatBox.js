@@ -1,13 +1,15 @@
 function CloseChatBox({
   currentQuestion,
   setIsChatBoxVisible,
-  addDelayedMessage,
+  setCurrentQuestion,
 }) {
-  if (currentQuestion === "close") {
+  if (currentQuestion === "Thank you for chatting with us. Have a great day!") {
     setTimeout(() => {
       setIsChatBoxVisible(false);
+      setCurrentQuestion("close");
     }, 2000);
   }
+
   return true;
 }
 
