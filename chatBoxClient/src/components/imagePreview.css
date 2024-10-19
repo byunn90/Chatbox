@@ -1,9 +1,9 @@
 .image-preview {
   max-width: 200px; /* Set a maximum width for the image */
-  max-height: 200px; /* Set a maximum height for the image */
-  width: auto; /* Maintain aspect ratio */
-  height: auto; /* Maintain aspect ratio */
-  border-radius: 5px; /* Optional: Add rounded corners */
+  max-height: 200px;
+  width: auto;
+  height: auto;
+  border-radius: 5px;
 }
 
 .pdf-preview {
