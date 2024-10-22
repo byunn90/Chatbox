@@ -7,11 +7,10 @@
 - [Technologies Used](#technologies-used)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
-  - [Frontend (React)](#frontend-react)
-  - [Backend (.NET)](#backend-net)
+- [Frontend (React)](#frontend-react)
+- [Backend (.NET)](#backend-net)
 - [Configuration](#configuration)
 - [Usage](#usage)
-  - [Example Flow](#example-flow)
 - [Project Structure](#project-structure)
 - [Future Enhancements](#future-enhancements)
 - [Contributing](#contributing)
@@ -58,10 +57,36 @@ To run this project, you'll need:
 
 ## Installation
 
-### Frontend (React)
+Installation
+Frontend (React)
 
-1. Clone the frontend repository:
-   ```bash
-   git clone https://github.com/your-username/my-chat-box.git
-   cd my-chat-box
-   ```
+1. Install Node.js: Make sure you have Node.js installed. You can verify the installation by running the following command in your terminal:
+   _/ node -v /_
+2. Clone the frontend repository:
+   git clone git@github.com:byunn90/Chatbox.git
+   _/ cd my-chat-box /_
+3. Install frontend dependencies:
+   _/ npm install /_
+
+4. Run the frontend development server:
+   _/ npm start /_
+   By default, the app will run at http://localhost:3000.
+   Backend (.NET)
+   Install .NET SDK:
+
+## Backend (.NET)
+
+1. Ensure that the .NET SDK is installed. You can check if it's installed by running:
+   _/ dotnet --version /_
+2. Navigate to the backend directory:
+   After ensuring that the .NET SDK is installed, navigate to the backend project:
+3. Install backend dependencies:
+   Run the following command to install the required .NET dependencies:
+   _/ dotnet restore /_
+4. Run the backend server:
+   Start the backend server by running:
+   _/ dotnet run /_
+
+## Future
+
+i'm currently working on this project slowly due to being busy with work and life commitments. More features will be added as I find time to implement them.
